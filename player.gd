@@ -9,10 +9,33 @@ var input : Vector2
 @onready var dialogue_box = $UI/DialogueBox
 @onready var dialogue_text: RichTextLabel = $UI/DialogueBox/DialogueText
 
+var spawned := false
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+	var i_pee = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+	print(i_pee)
+
 func _ready() -> void:
+	spawn_sequence()
+	
 	Manager.player = self
 
+func spawn_sequence():
+	if !is_multiplayer_authority(): return
+	$CollisionShape3D.disabled = true
+	global_position = Vector3.ZERO
+	await get_tree().create_timer(0.2).timeout
+	$CollisionShape3D.disabled = false
+	spawned = true
+
 func _physics_process(delta: float) -> void:
+	if !spawned: return
+	
+	if !is_multiplayer_authority(): return
+	
+	$PlayerCamera.make_current()
+	
 	input = Input.get_vector("left", "right", "down", "up")
 	
 	if input.length() > 0:

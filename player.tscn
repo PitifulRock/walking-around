@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dyyysdjkik1qb"]
+[gd_scene load_steps=33 format=3 uid="uid://dyyysdjkik1qb"]
 
 [ext_resource type="Script" uid="uid://di5x506dt52hf" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="2_onrkg"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://desi6vp40phj" path="res://sound/grass4.ogg" id="5_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://wi4s4hkhurr6" path="res://textures/New Project(107)(1).png" id="5_sweqy"]
 [ext_resource type="AudioStream" uid="uid://btrpr8axwh37h" path="res://sound/grass5.ogg" id="6_1jxqw"]
+[ext_resource type="Script" uid="uid://cs83wbgj4siug" path="res://FollowCam.gd" id="8_dw050"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 radius = 0.207
@@ -459,6 +460,26 @@ streams_count = 2
 stream_0/stream = ExtResource("5_2hs0m")
 stream_1/stream = ExtResource("6_1jxqw")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1jxqw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("GPUParticles3D:emitting")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("PlayerCamera:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimationPlayer:current_animation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Model:scale")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")
 
@@ -613,3 +634,18 @@ patch_margin_bottom = 57
 stream = SubResource("AudioStreamRandomizer_n7ghd")
 volume_db = -13.095
 pitch_scale = 2.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1jxqw")
+
+[node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(-0.70710677, -0.39540908, 0.5862181, 0, 0.8290376, 0.5591929, -0.70710677, 0.39540908, -0.5862181, 3.25, 5.25, -3.25)
+top_level = true
+projection = 1
+size = 9.154
+near = 1.02
+far = 24.55
+script = ExtResource("8_dw050")
+player = NodePath("..")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="PlayerCamera"]

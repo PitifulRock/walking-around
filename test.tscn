@@ -1,14 +1,15 @@
-[gd_scene load_steps=44 format=4 uid="uid://cp74i5p07ihqg"]
+[gd_scene load_steps=45 format=4 uid="uid://cp74i5p07ihqg"]
 
 [ext_resource type="Shader" uid="uid://b0u8e3sf7tm0u" path="res://pixelate.gdshader" id="1_37kl0"]
 [ext_resource type="PackedScene" uid="uid://dyyysdjkik1qb" path="res://player.tscn" id="2_8uh7m"]
-[ext_resource type="Script" uid="uid://cs83wbgj4siug" path="res://FollowCam.gd" id="3_g14j6"]
 [ext_resource type="Shader" uid="uid://bdgbdmw2hh77q" path="res://addons/simplegrasstextured/shaders/grass_unshaded.gdshader" id="4_g14j6"]
 [ext_resource type="Texture2D" uid="uid://cfl46h32ebur4" path="res://textures/grass_triangle.png" id="4_ykrsh"]
 [ext_resource type="Script" uid="uid://2juaclm8gc1n" path="res://addons/simplegrasstextured/grass.gd" id="5_vbegm"]
 [ext_resource type="Shader" uid="uid://cdooqj4aiumdm" path="res://addons/simplegrasstextured/shaders/grass_unshaded_nearest.gdshader" id="7_vbegm"]
 [ext_resource type="Shader" uid="uid://cviuf7vpfu51r" path="res://shaders/water.gdshader" id="7_xersf"]
 [ext_resource type="PackedScene" uid="uid://d2raxvx037wde" path="res://ephraim.tscn" id="8_ehkex"]
+[ext_resource type="Script" uid="uid://ctg4w2ak75lt4" path="res://scripts/networking/multiplayer_spawner.gd" id="10_00tp4"]
+[ext_resource type="Script" uid="uid://d0f4lvwfp68w6" path="res://scripts/networking/network_ui.gd" id="10_77dp3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mf4mk"]
 shader = ExtResource("1_37kl0")
@@ -35,7 +36,7 @@ glow_hdr_threshold = 0.46
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g14j6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xersf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00tp4"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_g14j6")
@@ -70,7 +71,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_xersf"),
+"material": SubResource("ShaderMaterial_00tp4"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -177,7 +178,7 @@ size = Vector3(400, 1, 400)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ykrsh"]
 data = PackedVector3Array(-200, 0.5, 200, 200, 0.5, 200, -200, -0.5, 200, 200, 0.5, 200, 200, -0.5, 200, -200, -0.5, 200, 200, 0.5, -200, -200, 0.5, -200, 200, -0.5, -200, -200, 0.5, -200, -200, -0.5, -200, 200, -0.5, -200, 200, 0.5, 200, 200, 0.5, -200, 200, -0.5, 200, 200, 0.5, -200, 200, -0.5, -200, 200, -0.5, 200, -200, 0.5, -200, -200, 0.5, 200, -200, -0.5, -200, -200, 0.5, 200, -200, -0.5, 200, -200, -0.5, -200, 200, 0.5, 200, -200, 0.5, 200, 200, 0.5, -200, -200, 0.5, 200, -200, 0.5, -200, 200, 0.5, -200, -200, -0.5, 200, 200, -0.5, 200, -200, -0.5, -200, 200, -0.5, 200, 200, -0.5, -200, -200, -0.5, -200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_00tp4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_77dp3"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_vbegm")
@@ -212,7 +213,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_00tp4"),
+"material": SubResource("ShaderMaterial_77dp3"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -312,24 +313,10 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 shadow_opacity = 0.7
 
-[node name="Player" parent="." instance=ExtResource("2_8uh7m")]
-collision_layer = 2
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.716795, 0.78636956, 1.3373327)
 mesh = SubResource("BoxMesh_8uh7m")
 surface_material_override/0 = SubResource("StandardMaterial3D_g14j6")
-
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(-0.7071067, -0.39540908, 0.5862181, 0, 0.8290376, 0.5591929, -0.7071067, 0.39540908, -0.5862181, 3.25, 5.25, -3.25)
-projection = 1
-size = 9.154
-near = 1.02
-far = 24.55
-script = ExtResource("3_g14j6")
-player = NodePath("../Player")
-
-[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="."]
 visible = false
@@ -451,3 +438,47 @@ speed_scale = 0.02
 
 [node name="Ephraim" parent="." instance=ExtResource("8_ehkex")]
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -1.4385834, -4.7683716e-07, 2.2348628)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dyyysdjkik1qb")
+spawn_path = NodePath("..")
+script = ExtResource("10_00tp4")
+network_player = ExtResource("2_8uh7m")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.93358046, -0.15258564, 0.324261, 0, 0.90482706, 0.42577934, -0.35836792, 0.3974992, -0.844729, 0, 4, -7.25)
+
+[node name="NetworkUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_77dp3")
+
+[node name="Server" type="Button" parent="NetworkUI"]
+layout_mode = 0
+offset_right = 81.0
+offset_bottom = 30.0
+text = "HOST"
+
+[node name="Client" type="Button" parent="NetworkUI"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 81.0
+offset_bottom = 75.0
+text = "JOIN"
+
+[node name="HostOnlineID" type="LineEdit" parent="NetworkUI"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 40.0
+offset_right = 224.0
+offset_bottom = 75.0
+placeholder_text = "Enter ID"
+emoji_menu_enabled = false
+caret_blink = true
+
+[connection signal="pressed" from="NetworkUI/Server" to="NetworkUI" method="_on_server_pressed"]
+[connection signal="pressed" from="NetworkUI/Client" to="NetworkUI" method="_on_client_pressed"]
