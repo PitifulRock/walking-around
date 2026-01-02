@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ou0wxxve4g1u"
+path="res://.godot/imported/sine talk.ogg-041642a61cab6e6439e33211c22fdd6a.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/sine talk.ogg"
+dest_files=["res://.godot/imported/sine talk.ogg-041642a61cab6e6439e33211c22fdd6a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
