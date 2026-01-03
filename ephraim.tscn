@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d2raxvx037wde"]
+[gd_scene load_steps=30 format=3 uid="uid://d2raxvx037wde"]
 
 [ext_resource type="Texture2D" uid="uid://novwxvf17dme" path="res://textures/hat.png" id="1_7gaw0"]
 [ext_resource type="Script" uid="uid://byfd1hp5ywspo" path="res://scripts/dialogue_node.gd" id="1_t0qd0"]
@@ -10,7 +10,19 @@
 radius = 0.207
 height = 0.696
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gaw0"]
+render_priority = 1
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.16787231, 0.30211988, 0.52637196, 1)
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqtel"]
+next_pass = SubResource("StandardMaterial3D_7gaw0")
 blend_mode = 3
 shading_mode = 0
 stencil_mode = 2

@@ -1,11 +1,15 @@
-[gd_scene load_steps=33 format=3 uid="uid://dyyysdjkik1qb"]
+[gd_scene load_steps=36 format=3 uid="uid://dyyysdjkik1qb"]
 
-[ext_resource type="Script" uid="uid://di5x506dt52hf" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://di5x506dt52hf" path="res://entities/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="2_onrkg"]
 [ext_resource type="FontFile" uid="uid://dtf6ex10wjuju" path="res://textures/Qilka-Bold copy.otf" id="3_hqtel"]
+[ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="3_i623q"]
 [ext_resource type="AudioStream" uid="uid://desi6vp40phj" path="res://sound/grass4.ogg" id="5_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://b0dq4wgoxcw0x" path="res://textures/clipboard.png" id="5_ef06p"]
 [ext_resource type="Texture2D" uid="uid://wi4s4hkhurr6" path="res://textures/New Project(107)(1).png" id="5_sweqy"]
+[ext_resource type="Script" uid="uid://jt3rxs80jvda" path="res://scripts/pause_menu.gd" id="5_x08pd"]
 [ext_resource type="AudioStream" uid="uid://btrpr8axwh37h" path="res://sound/grass5.ogg" id="6_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://jxnsin6q1hbs" path="res://textures/clipboard_2.png" id="6_tjdhl"]
 [ext_resource type="Script" uid="uid://cs83wbgj4siug" path="res://FollowCam.gd" id="8_dw050"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
@@ -65,6 +69,8 @@ bottom_radius = 0.1
 height = 0.66
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+radius = 0.35595703
+height = 1.5180664
 
 [sub_resource type="Animation" id="Animation_onrkg"]
 length = 0.001
@@ -448,10 +454,6 @@ material = SubResource("StandardMaterial3D_dw050")
 size = Vector2(0.4, 0.4)
 orientation = 2
 
-[sub_resource type="Theme" id="Theme_sweqy"]
-default_font = ExtResource("3_hqtel")
-default_font_size = 92
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n7ghd"]
 playback_mode = 1
 random_pitch = 1.1
@@ -479,6 +481,15 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath("Model:scale")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("NameTag:text")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("AnimationPlayer:speed_scale")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("AnimationPlayer:playback_default_blend_time")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")
@@ -541,7 +552,7 @@ skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4flbx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7590332, 0)
 shape = SubResource("CapsuleShape3D_4flbx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -549,9 +560,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_i3pqv")
 }
 autoplay = "idle"
-playback_auto_capture_transition_type = 1
 playback_auto_capture_ease_type = 2
-playback_default_blend_time = 0.8
+playback_default_blend_time = 0.3
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07994914, 0.04499811)
@@ -600,7 +610,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(-0.5476074, 1.1824951)
-theme = SubResource("Theme_sweqy")
+theme = ExtResource("3_i623q")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 fit_content = true
@@ -630,13 +640,116 @@ patch_margin_top = 57
 patch_margin_right = 57
 patch_margin_bottom = 57
 
-[node name="FootstepPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_n7ghd")
-volume_db = -13.095
-pitch_scale = 2.0
+[node name="PauseMenu" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_x08pd")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_1jxqw")
+[node name="Name" type="RichTextLabel" parent="UI/PauseMenu"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 56.0
+offset_right = 704.0
+offset_bottom = 122.0
+theme = ExtResource("3_i623q")
+theme_override_font_sizes/normal_font_size = 56
+bbcode_enabled = true
+text = "[wave]rv there yet"
+fit_content = true
+
+[node name="LabelID" type="RichTextLabel" parent="UI/PauseMenu"]
+clip_contents = false
+layout_mode = 1
+offset_left = 39.0
+offset_top = 122.0
+offset_right = 343.0
+offset_bottom = 154.0
+theme = ExtResource("3_i623q")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "Lobby ID: 109775243706805379
+"
+fit_content = true
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="UI/PauseMenu/LabelID"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -15.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+
+[node name="CopyButton" type="TextureButton" parent="UI/PauseMenu/LabelID"]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 3.0
+offset_right = 302.0
+offset_bottom = 22.0
+texture_normal = ExtResource("5_ef06p")
+texture_pressed = ExtResource("6_tjdhl")
+texture_hover = ExtResource("6_tjdhl")
+texture_disabled = ExtResource("5_ef06p")
+texture_focused = ExtResource("5_ef06p")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 184.0
+offset_right = 316.0
+offset_bottom = 676.0
+
+[node name="Resume" type="Button" parent="UI/PauseMenu/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 68.11)
+layout_mode = 2
+theme = ExtResource("3_i623q")
+theme_override_font_sizes/font_size = 36
+text = "Resume"
+
+[node name="---------------" type="Control" parent="UI/PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8.66)
+layout_mode = 2
+
+[node name="LeaveLobby" type="Button" parent="UI/PauseMenu/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 68.11)
+layout_mode = 2
+theme = ExtResource("3_i623q")
+theme_override_font_sizes/font_size = 36
+text = "Leave Lobby"
+
+[node name="--------------" type="Control" parent="UI/PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8.66)
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 68.11)
+layout_mode = 2
+theme = ExtResource("3_i623q")
+theme_override_font_sizes/font_size = 36
+text = "Quit"
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_n7ghd")
+volume_db = -7.602
+pitch_scale = 2.0
+max_distance = 1072.34
+attenuation_filter_cutoff_hz = 12766.0
 
 [node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(-0.70710677, -0.39540908, 0.5862181, 0, 0.8290376, 0.5591929, -0.70710677, 0.39540908, -0.5862181, 3.25, 5.25, -3.25)
@@ -649,3 +762,26 @@ script = ExtResource("8_dw050")
 player = NodePath("..")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="PlayerCamera"]
+unique_name_in_owner = true
+
+[node name="NameTag" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6577599, 0)
+billboard = 1
+texture_filter = 0
+render_priority = 2
+outline_render_priority = 1
+text = "pitiful rock pitiful rock "
+font = ExtResource("3_hqtel")
+font_size = 62
+outline_size = 40
+vertical_alignment = 2
+autowrap_mode = 2
+width = 700.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1jxqw")
+
+[connection signal="pressed" from="UI/PauseMenu/LabelID/CopyButton" to="UI/PauseMenu" method="_on_copy_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/VBoxContainer/Resume" to="." method="pause"]
+[connection signal="pressed" from="UI/PauseMenu/VBoxContainer/LeaveLobby" to="UI/PauseMenu" method="_on_leave_lobby_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/VBoxContainer/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]

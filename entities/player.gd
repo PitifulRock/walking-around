@@ -1,40 +1,59 @@
 class_name Player
 extends CharacterBody3D
 
+@onready var ID : int = self.name.to_int()
+
 @export var SPEED := 260.0
 @export var ACCELERATION := 0.2
 @export var GRAVITY := 9.8
 
 var input : Vector2
-@onready var dialogue_box = $UI/DialogueBox
-@onready var dialogue_text: RichTextLabel = $UI/DialogueBox/DialogueText
+
+const PLAYER_UI = preload("uid://boq0nuabxsj4x")
+var ui : Control
 
 var spawned := false
+var steam_name : String
+var paused := false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
-	var i_pee = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
-	print(i_pee)
+
+func _input(_event: InputEvent) -> void:
+	if !is_multiplayer_authority(): return
+	
+	if Input.is_action_just_pressed("pause"):
+		pause()
+
+func pause():
+	paused = !paused
+	ui.pause_menu.visible = paused
 
 func _ready() -> void:
 	spawn_sequence()
-	
-	Manager.player = self
 
 func spawn_sequence():
 	if !is_multiplayer_authority(): return
+	
+	Manager.local_player = self
 	$CollisionShape3D.disabled = true
 	global_position = Vector3.ZERO
-	await get_tree().create_timer(0.2).timeout
+	$NameTag.text = Steam.getPersonaName()
+	$NameTag.visible = false
+	$PlayerCamera.make_current()
+	%AudioListener3D.make_current()
+	ui = PLAYER_UI.instantiate()
+	add_child(ui)
+	ui.pause_menu.visible = false
+	
+	await get_tree().create_timer(0.1).timeout
 	$CollisionShape3D.disabled = false
 	spawned = true
 
 func _physics_process(delta: float) -> void:
-	if !spawned: return
+	if !spawned or paused: return
 	
 	if !is_multiplayer_authority(): return
-	
-	$PlayerCamera.make_current()
 	
 	input = Input.get_vector("left", "right", "down", "up")
 	
