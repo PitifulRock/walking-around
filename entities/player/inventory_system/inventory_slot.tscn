@@ -1,0 +1,156 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1ys0uh5xu7fe"]
+
+[ext_resource type="Script" uid="uid://y48cg0a5ii5w" path="res://entities/player/inventory_system/inventory_slot.gd" id="1_35e3l"]
+[ext_resource type="Texture2D" uid="uid://bflc0yit05t24" path="res://textures/ui/base_square.png" id="2_v518j"]
+[ext_resource type="Texture2D" uid="uid://dnhanj2yrjn3y" path="res://textures/ui/box_selected.png" id="3_33m1n"]
+[ext_resource type="Texture2D" uid="uid://br7ca7npe67cj" path="res://textures/ui/box_highlight.png" id="3_v518j"]
+[ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="4_angbd"]
+
+[sub_resource type="Animation" id="Animation_33m1n"]
+resource_name = "hover_anim"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-7.450581e-09, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemName:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_te65i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemName:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_te65i"]
+_data = {
+&"RESET": SubResource("Animation_te65i"),
+&"hover_anim": SubResource("Animation_33m1n")
+}
+
+[node name="InventorySlot" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchor_right = 0.07320644
+anchor_bottom = 0.13020833
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_35e3l")
+metadata/_edit_use_anchors_ = true
+
+[node name="BgButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+texture_normal = ExtResource("2_v518j")
+texture_pressed = ExtResource("3_33m1n")
+texture_hover = ExtResource("3_v518j")
+texture_disabled = ExtResource("2_v518j")
+texture_focused = ExtResource("2_v518j")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+mouse_filter = 2
+expand_mode = 1
+
+[node name="ItemCount" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -39.0
+offset_right = -2.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("4_angbd")
+theme_override_font_sizes/font_size = 41
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ItemName" type="Label" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 107.0
+offset_top = -12.0
+offset_right = 167.0
+offset_bottom = 17.0
+grow_vertical = 2
+theme = ExtResource("4_angbd")
+theme_override_font_sizes/font_size = 24
+text = "Stick"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_te65i")
+}
+
+[connection signal="mouse_entered" from="BgButton" to="." method="_on_bg_button_mouse_entered"]
+[connection signal="mouse_exited" from="BgButton" to="." method="_on_bg_button_mouse_exited"]
+[connection signal="pressed" from="BgButton" to="." method="_on_button_pressed"]

@@ -3,14 +3,18 @@ extends CharacterBody3D
 
 signal game_unpaused
 
+@export var player_data : PlayerData
+
 @onready var ID : int = self.name.to_int()
 @onready var model: Node3D = $Model
 
-@export var SPEED := 260.0
-@export var ACCELERATION := 0.2
+@export var SPEED := 4.4
+@export var ACCELERATION := 12.0
 @export var GRAVITY := 9.8
+var current_health : float
 
 var input : Vector2
+var facing_dir : Vector3
 
 const PLAYER_UI = preload("uid://boq0nuabxsj4x")
 var ui : Control
@@ -35,6 +39,8 @@ func pause():
 	ui.pause_menu.visible = paused
 
 func _ready() -> void:
+	if player_data: player_data = PlayerData.new()
+	current_health = player_data.max_health
 	spawn_sequence()
 
 func spawn_sequence():
@@ -67,14 +73,17 @@ func _physics_process(delta: float) -> void:
 	input = Input.get_vector("left", "right", "down", "up")
 	
 	if input.length() > 0:
-		rotation.y = lerp_angle(rotation.y, input.angle() + deg_to_rad(45), 20*delta)
-		velocity = -global_transform.basis.z * SPEED * delta
+		var angle = input.angle() + deg_to_rad(45)
+		facing_dir = Vector3(sin(angle),0.0,cos(angle)).normalized()
+		rotation.y = lerp_angle(rotation.y, angle, 20*delta)
+		velocity = -facing_dir * SPEED * player_data.speed_mult
 	else:
-		velocity = velocity.lerp(Vector3.ZERO, ACCELERATION)
+		velocity = velocity.lerp(Vector3.ZERO, ACCELERATION * delta)
 	
 	if !is_on_floor():
 		velocity.y = -GRAVITY
 	
+	$AnimationPlayer.speed_scale = 1+(player_data.speed_mult-1.0)/2
 	if input.length() > 0:
 		$AnimationPlayer.play("run")
 	else:

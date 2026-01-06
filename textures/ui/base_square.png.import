@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clw0seokeii6i"
-path="res://.godot/imported/player_outline_highlight.png-3231edbd77272bdb10e17fb60ba314d1.ctex"
+uid="uid://bflc0yit05t24"
+path="res://.godot/imported/base_square.png-16563416ba6188078a413075ec774229.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/player_outline_highlight.png"
-dest_files=["res://.godot/imported/player_outline_highlight.png-3231edbd77272bdb10e17fb60ba314d1.ctex"]
+source_file="res://textures/ui/base_square.png"
+dest_files=["res://.godot/imported/base_square.png-16563416ba6188078a413075ec774229.ctex"]
 
 [params]
 

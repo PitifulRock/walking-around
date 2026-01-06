@@ -10,7 +10,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("5_tbgi4")
 shader_parameter/pixel_size = 2
-shader_parameter/screen_size = Vector2(1000, 800)
+shader_parameter/screen_size = Vector2(1366, 768)
 
 [node name="Main" type="Node" node_paths=PackedStringArray("default_scene")]
 script = ExtResource("1_85g3d")
@@ -40,5 +40,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="MainMenu" parent="." instance=ExtResource("6_tefeu")]

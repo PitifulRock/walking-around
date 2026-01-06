@@ -6,6 +6,7 @@ extends Area3D
 
 var in_range := false
 var off_cooldown := true
+var current_player : Player
 
 signal interacted
 signal entered
@@ -15,6 +16,8 @@ func _ready() -> void:
 	body_entered.connect(_entered)
 	body_exited.connect(_exited)
 	if indicator: indicator.visible = false
+	if get_collision_mask_value(2) == false:
+		set_collision_layer_value(2, true)
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and in_range:
@@ -22,19 +25,24 @@ func _input(_event: InputEvent) -> void:
 
 func _entered(body : Node3D):
 	if body is Player:
+		current_player = body
 		in_range = true
 		entered.emit()
 		if indicator: indicator.visible = true
 
 func _exited(body : Node3D):
 	if body is Player:
+		current_player = null
 		in_range = false
 		exited.emit()
 		if indicator: indicator.visible = false
 
 func _interact():
-	interacted.emit()
+	interacted.emit(current_player)
 	if indicator: indicator.visible = false
+	if delete_on_interact: 
+		queue_free()
+		return
 	
 	_cooldown()
 

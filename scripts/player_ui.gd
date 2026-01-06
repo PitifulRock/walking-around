@@ -1,8 +1,8 @@
 extends Control
 
-@onready var dialogue_box: Control = $DialogueBox
-@onready var dialogue_text: RichTextLabel = $DialogueBox/DialogueText
-@onready var pause_menu: Control = $PauseMenu
+@onready var dialogue_box: Control = $CenterUI/DialogueBox
+@onready var dialogue_text: RichTextLabel = $CenterUI/DialogueBox/DialogueText
+@onready var pause_menu: Control = $CenterUI/PauseMenu
 @onready var player = $".."
 
 func _ready() -> void:

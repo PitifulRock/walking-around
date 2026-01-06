@@ -1,0 +1,115 @@
+[gd_scene load_steps=16 format=3 uid="uid://btrunafcjivp4"]
+
+[ext_resource type="Script" uid="uid://bj6ani0t0mlpy" path="res://items/speed_stick.gd" id="1_ood5n"]
+[ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="2_k6ddv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hh8ma"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8bgq"]
+next_pass = SubResource("StandardMaterial3D_hh8ma")
+shading_mode = 0
+albedo_color = Color(0.26376894, 0.6739557, 0.99999994, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ood5n"]
+material = SubResource("StandardMaterial3D_r8bgq")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.6
+radial_segments = 32
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k6ddv"]
+material = SubResource("StandardMaterial3D_r8bgq")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.25
+radial_segments = 32
+
+[sub_resource type="Gradient" id="Gradient_k6ddv"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5, 0.7)
+colors = PackedColorArray(0.0865374, 0.4812147, 0.9999998, 1, 9.62615e-07, 0.71947414, 0.8590265, 1, 0.25619054, 0.7222289, 0.99999994, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v4dbv"]
+gradient = SubResource("Gradient_k6ddv")
+
+[sub_resource type="Gradient" id="Gradient_ubdwt"]
+offsets = PackedFloat32Array(0.2021858, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8sefs"]
+gradient = SubResource("Gradient_ubdwt")
+
+[sub_resource type="Curve" id="Curve_8sefs"]
+_data = [Vector2(0, 0.77586204), 0.0, -0.24827597, 0, 0, Vector2(1, 0), -1.1961694, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2hs0m"]
+curve = SubResource("Curve_8sefs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k6ddv"]
+emission_shape = 3
+emission_box_extents = Vector3(0.26, 0.01, 0.185)
+angle_min = -318.1
+angle_max = 318.1
+angular_velocity_min = -187.53001
+angular_velocity_max = 187.52998
+radial_velocity_min = -3.0000222
+radial_velocity_max = 2.9999776
+gravity = Vector3(0, -2, 0)
+linear_accel_min = 0.09999776
+linear_accel_max = 0.09999776
+scale_curve = SubResource("CurveTexture_2hs0m")
+color_ramp = SubResource("GradientTexture1D_8sefs")
+color_initial_ramp = SubResource("GradientTexture1D_v4dbv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw050"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_k6ddv")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v4dbv"]
+material = SubResource("StandardMaterial3D_dw050")
+size = Vector2(0.4, 0.4)
+orientation = 2
+
+[node name="SpeedStick" type="Node3D"]
+script = ExtResource("1_ood5n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29489407, -0.01915431)
+mesh = SubResource("CylinderMesh_ood5n")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6764905, 0.7364514, 3.219131e-08, -0.7364514, 0.6764905, -1.41410545e-08, -3.2191313e-08, -1.4141049e-08, 1, 0.08809121, 0.3768703, -0.01915431)
+mesh = SubResource("CylinderMesh_k6ddv")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56088597, 0.04499811)
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource("ParticleProcessMaterial_k6ddv")
+draw_pass_1 = SubResource("PlaneMesh_v4dbv")

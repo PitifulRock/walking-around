@@ -1,13 +1,19 @@
-[gd_scene load_steps=29 format=3 uid="uid://dyyysdjkik1qb"]
+[gd_scene load_steps=31 format=3 uid="uid://dyyysdjkik1qb"]
 
 [ext_resource type="Script" uid="uid://di5x506dt52hf" path="res://entities/player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bxmirtd4vfln4" path="res://entities/player/model.gd" id="2_26q78"]
+[ext_resource type="Script" uid="uid://dpy8713fxilhd" path="res://scripts/player_data_resource.gd" id="2_bectd"]
 [ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="2_onrkg"]
 [ext_resource type="Material" uid="uid://dbace8e3f85x0" path="res://entities/player/default_player_material.tres" id="2_qiwj3"]
 [ext_resource type="FontFile" uid="uid://dtf6ex10wjuju" path="res://textures/Qilka-Bold copy.otf" id="3_hqtel"]
 [ext_resource type="AudioStream" uid="uid://desi6vp40phj" path="res://sound/grass4.ogg" id="5_2hs0m"]
 [ext_resource type="AudioStream" uid="uid://btrpr8axwh37h" path="res://sound/grass5.ogg" id="6_1jxqw"]
 [ext_resource type="Script" uid="uid://cs83wbgj4siug" path="res://scripts/FollowCam.gd" id="8_dw050"]
+
+[sub_resource type="Resource" id="Resource_wvtmh"]
+script = ExtResource("2_bectd")
+inventory = null
+metadata/_custom_type_script = "uid://dpy8713fxilhd"
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 radius = 0.207
@@ -362,21 +368,21 @@ offsets = PackedFloat32Array(0, 0.5, 0.8)
 colors = PackedColorArray(0.27981246, 0.20119253, 0.13566402, 1, 0.363869, 0.8637967, 0.12414218, 1, 0.1289283, 0.3549105, 1.92523e-07, 1)
 metadata/_snap_enabled = true
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_i3pqv"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bectd"]
 gradient = SubResource("Gradient_onrkg")
 
 [sub_resource type="Gradient" id="Gradient_i3pqv"]
 offsets = PackedFloat32Array(0.2021858, 1)
 colors = PackedColorArray(0.8732654, 0.6261364, 0.3563315, 1, 0.95462173, 0.8449446, 0.78013176, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_hqtel"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wvtmh"]
 gradient = SubResource("Gradient_i3pqv")
 
 [sub_resource type="Curve" id="Curve_sweqy"]
 _data = [Vector2(0, 0.77586204), 0.0, -0.24827597, 0, 0, Vector2(1, 0), -1.1961694, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_2hs0m"]
+[sub_resource type="CurveTexture" id="CurveTexture_7thud"]
 curve = SubResource("Curve_sweqy")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1jxqw"]
@@ -391,11 +397,11 @@ radial_velocity_max = 1.2999777
 gravity = Vector3(0, 0, 0.2)
 linear_accel_min = 0.09999776
 linear_accel_max = 0.09999776
-scale_curve = SubResource("CurveTexture_2hs0m")
-color_ramp = SubResource("GradientTexture1D_hqtel")
-color_initial_ramp = SubResource("GradientTexture1D_i3pqv")
+scale_curve = SubResource("CurveTexture_7thud")
+color_ramp = SubResource("GradientTexture1D_wvtmh")
+color_initial_ramp = SubResource("GradientTexture1D_bectd")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw050"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a1qjk"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
@@ -408,7 +414,7 @@ particles_anim_loop = false
 grow = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_b26j0"]
-material = SubResource("StandardMaterial3D_dw050")
+material = SubResource("StandardMaterial3D_a1qjk")
 size = Vector2(0.4, 0.4)
 orientation = 2
 
@@ -454,6 +460,7 @@ properties/9/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")
+player_data = SubResource("Resource_wvtmh")
 
 [node name="Model" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8599571, 0, 0, 0, 1, 0, 0, 0)
@@ -488,6 +495,9 @@ transform = Transform3D(-3.7119793e-08, -0.70710677, 0.70710677, 0, 0.70710677, 
 mesh = SubResource("CapsuleMesh_onrkg")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = ExtResource("2_qiwj3")
+
+[node name="HandPoint" type="Marker3D" parent="Model/Torso/ArmL"]
+transform = Transform3D(0.99999946, 0, 0, 0, -4.37114e-08, 0.9999999, 0, -0.99999994, -4.3711363e-08, 0.35833216, -0.3650934, -0.09586073)
 
 [node name="ArmR" type="Node3D" parent="Model/Torso"]
 transform = Transform3D(-0.8, 0, 0, 0, 0.8, -6.9938224e-08, 0, 6.9938224e-08, 0.8, -0.143, 0.49399304, 0)

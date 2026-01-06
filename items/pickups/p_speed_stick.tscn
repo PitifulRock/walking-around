@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://csqw3pcb6g2kn"]
+
+[ext_resource type="Script" uid="uid://cnmn3yqyekigl" path="res://items/pickups/pickup.gd" id="1_lusu8"]
+[ext_resource type="Resource" uid="uid://dfn01t0hmhu2k" path="res://items/pickups/resources/SpeedStick.tres" id="2_b7cto"]
+[ext_resource type="Texture2D" uid="uid://ccvv2ynt6aye2" path="res://textures/ui/hand_icon_1.png" id="3_b5rwa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdq2y"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8bgq"]
+next_pass = SubResource("StandardMaterial3D_wdq2y")
+shading_mode = 0
+albedo_color = Color(0.26376894, 0.6739557, 0.99999994, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r8bgq"]
+material = SubResource("StandardMaterial3D_r8bgq")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.6
+radial_segments = 32
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b5rwa"]
+material = SubResource("StandardMaterial3D_r8bgq")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.25
+radial_segments = 32
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1x35e"]
+radius = 0.8685296
+
+[node name="Stick" type="Area3D" node_paths=PackedStringArray("indicator")]
+collision_mask = 3
+script = ExtResource("1_lusu8")
+item_data = ExtResource("2_b7cto")
+indicator = NodePath("PickupIndicator")
+metadata/_custom_type_script = "uid://cnmn3yqyekigl"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.08588219, 0)
+mesh = SubResource("CylinderMesh_r8bgq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6764905, 0.7364514, 3.219131e-08, 0, -4.371139e-08, 1, 0.7364514, -0.6764905, -2.9570334e-08, 0.08809121, 0.08588219, -0.081976235)
+mesh = SubResource("CylinderMesh_b5rwa")
+
+[node name="PickupIndicator" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63906074, 0)
+pixel_size = 0.001
+billboard = 1
+texture = ExtResource("3_b5rwa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_1x35e")

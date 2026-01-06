@@ -1,7 +1,7 @@
 extends Camera3D
 
 @export var player: Player
-@export var look_ahead_mult = 0.9
+@export var look_ahead_mult = 1.0
 @export var down_offset = 1.0
 
 var offset

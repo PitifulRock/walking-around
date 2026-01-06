@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgiflmuqbbkv"]
+[gd_scene load_steps=5 format=3 uid="uid://bgiflmuqbbkv"]
 
 [ext_resource type="Script" uid="uid://coldbiidpa0cs" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://chanb0vygle3y" path="res://textures/bgs/bg_1.png" id="2_8ln24"]
 [ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="2_wu84c"]
 [ext_resource type="PackedScene" uid="uid://tndnmpuu1mxy" path="res://scenes/menu_world.tscn" id="3_8ln24"]
 
@@ -9,9 +10,58 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 171.0
+offset_right = -171.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
+
+[node name="BorderR" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -384.0
+offset_right = 171.0
+offset_bottom = 384.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TextureRect2" type="TextureRect" parent="BorderR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1195.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ln24")
+expand_mode = 1
+
+[node name="BorderL" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -384.0
+offset_bottom = 384.0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="BorderL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1195.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ln24")
+expand_mode = 1
 
 [node name="Name" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -22,7 +72,7 @@ offset_bottom = 122.0
 theme = ExtResource("2_wu84c")
 theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
-text = "[wave]darren's game"
+text = "[wave]game"
 fit_content = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

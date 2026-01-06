@@ -1,17 +1,37 @@
-[gd_scene load_steps=12 format=3 uid="uid://boq0nuabxsj4x"]
+[gd_scene load_steps=20 format=3 uid="uid://boq0nuabxsj4x"]
 
 [ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="1_7ctsh"]
 [ext_resource type="Script" uid="uid://djxu1lgdgmoqh" path="res://scripts/player_ui.gd" id="1_bkx2g"]
 [ext_resource type="Texture2D" uid="uid://wi4s4hkhurr6" path="res://textures/New Project(107)(1).png" id="2_bkx2g"]
+[ext_resource type="Script" uid="uid://bco7lcx4y7fmp" path="res://entities/player/inventory_system/inventory_ui.gd" id="3_1jr8s"]
 [ext_resource type="Script" uid="uid://jt3rxs80jvda" path="res://scripts/pause_menu.gd" id="3_n31oh"]
+[ext_resource type="PackedScene" uid="uid://b1ys0uh5xu7fe" path="res://entities/player/inventory_system/inventory_slot.tscn" id="4_p7wxq"]
 [ext_resource type="Texture2D" uid="uid://b0dq4wgoxcw0x" path="res://textures/clipboard.png" id="4_wsb5h"]
+[ext_resource type="Texture2D" uid="uid://chixraygyslav" path="res://textures/ui/831682.png" id="5_7wyo6"]
 [ext_resource type="Texture2D" uid="uid://jxnsin6q1hbs" path="res://textures/clipboard_2.png" id="5_g4s8q"]
-[ext_resource type="Texture2D" uid="uid://dppcu288vqn0p" path="res://textures/player_inner.png" id="7_17uas"]
-[ext_resource type="Texture2D" uid="uid://dfkpq4pjtuoim" path="res://textures/player_outline.png" id="8_1c0bc"]
+[ext_resource type="Texture2D" uid="uid://dppcu288vqn0p" path="res://textures/ui/player_inner.png" id="7_17uas"]
+[ext_resource type="Texture2D" uid="uid://dfkpq4pjtuoim" path="res://textures/ui/player_outline.png" id="8_1c0bc"]
 [ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="8_wsb5h"]
-[ext_resource type="Texture2D" uid="uid://clw0seokeii6i" path="res://textures/player_outline_highlight.png" id="9_2tylp"]
+[ext_resource type="Texture2D" uid="uid://clw0seokeii6i" path="res://textures/ui/player_outline_highlight.png" id="9_2tylp"]
+[ext_resource type="Texture2D" uid="uid://chanb0vygle3y" path="res://textures/bgs/bg_1.png" id="11_1c0bc"]
+[ext_resource type="Texture2D" uid="uid://novwxvf17dme" path="res://textures/hat.png" id="11_2tylp"]
+
+[sub_resource type="Gradient" id="Gradient_7wyo6"]
+offsets = PackedFloat32Array(0.32439023, 1)
+colors = PackedColorArray(0.58326703, 0.43113652, 0.20760351, 1, 0.5263685, 0.34610152, 0.10016579, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p7wxq"]
+gradient = SubResource("Gradient_7wyo6")
 
 [sub_resource type="SphereMesh" id="SphereMesh_wsb5h"]
+radius = 82.0
+height = 164.0
+radial_segments = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_2tylp"]
+radius = 77.0
+height = 154.0
+radial_segments = 4
 
 [node name="PlayerUI" type="Control"]
 layout_mode = 3
@@ -20,9 +40,198 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_bkx2g")
 
-[node name="DialogueBox" type="Control" parent="."]
+[node name="Left" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -384.0
+offset_right = 171.0
+offset_bottom = 384.0
+grow_vertical = 2
+
+[node name="BorderL" type="Control" parent="Left"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -384.0
+offset_right = 171.0
+offset_bottom = 384.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Left/BorderL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1195.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_1c0bc")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Left/BorderL"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_p7wxq")
+expand_mode = 1
+
+[node name="Inventory" type="GridContainer" parent="Left"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.5
+offset_top = -442.0
+offset_right = 50.5
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 0
+script = ExtResource("3_1jr8s")
+
+[node name="InventorySlot" parent="Left/Inventory" instance=ExtResource("4_p7wxq")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Left/Inventory" instance=ExtResource("4_p7wxq")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Left/Inventory" instance=ExtResource("4_p7wxq")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Left/Inventory" instance=ExtResource("4_p7wxq")]
+layout_mode = 2
+
+[node name="Minimap" type="MeshInstance2D" parent="Left"]
+position = Vector2(100, 100)
+scale = Vector2(1.1, 1.1)
+mesh = SubResource("SphereMesh_wsb5h")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Left/Minimap"]
+clip_children = 1
+mesh = SubResource("SphereMesh_2tylp")
+
+[node name="Minimap" type="TextureRect" parent="Left/Minimap/MeshInstance2D"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.554375
+offset_top = -77.542534
+offset_right = 77.445625
+offset_bottom = 76.457466
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_2tylp")
+expand_mode = 1
+
+[node name="Right" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -384.0
+offset_bottom = 384.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="BorderR" type="Control" parent="Right"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -384.0
+offset_bottom = 384.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Right/BorderR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1195.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_1c0bc")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Right/BorderR"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_p7wxq")
+expand_mode = 1
+flip_h = true
+
+[node name="DayLabel" type="Label" parent="Right"]
+layout_mode = 0
+offset_top = 11.0
+offset_right = 171.0
+offset_bottom = 165.0
+theme = ExtResource("1_7ctsh")
+theme_override_font_sizes/font_size = 41
+text = "Day
+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Right"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.5
+offset_top = 156.0
+offset_right = 31.5
+offset_bottom = 219.0
+grow_horizontal = 2
+texture = ExtResource("5_7wyo6")
+expand_mode = 1
+
+[node name="CenterUI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -384.0
+offset_right = 512.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueBox" type="Control" parent="CenterUI"]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -38,7 +247,7 @@ grow_vertical = 0
 scale = Vector2(0.315, 0.315)
 pivot_offset = Vector2(241.5, 83)
 
-[node name="DialogueText" type="RichTextLabel" parent="DialogueBox"]
+[node name="DialogueText" type="RichTextLabel" parent="CenterUI/DialogueBox"]
 texture_filter = 1
 clip_contents = false
 layout_mode = 1
@@ -60,7 +269,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 visible_characters_behavior = 1
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="DialogueBox/DialogueText"]
+[node name="NinePatchRect2" type="NinePatchRect" parent="CenterUI/DialogueBox/DialogueText"]
 self_modulate = Color(1, 1, 1, 0.42745098)
 show_behind_parent = true
 layout_mode = 1
@@ -80,7 +289,7 @@ patch_margin_top = 57
 patch_margin_right = 57
 patch_margin_bottom = 57
 
-[node name="PauseMenu" type="Control" parent="."]
+[node name="PauseMenu" type="Control" parent="CenterUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,7 +298,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_n31oh")
 
-[node name="Name" type="RichTextLabel" parent="PauseMenu"]
+[node name="Name" type="RichTextLabel" parent="CenterUI/PauseMenu"]
 layout_mode = 1
 offset_left = 32.0
 offset_top = 56.0
@@ -98,10 +307,10 @@ offset_bottom = 122.0
 theme = ExtResource("1_7ctsh")
 theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
-text = "[wave]darren's game"
+text = "[wave]game"
 fit_content = true
 
-[node name="LabelID" type="RichTextLabel" parent="PauseMenu"]
+[node name="LabelID" type="RichTextLabel" parent="CenterUI/PauseMenu"]
 clip_contents = false
 layout_mode = 1
 offset_left = 39.0
@@ -116,7 +325,7 @@ text = "Lobby ID: 109775243706805379
 fit_content = true
 vertical_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="PauseMenu/LabelID"]
+[node name="ColorRect" type="ColorRect" parent="CenterUI/PauseMenu/LabelID"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -130,7 +339,7 @@ grow_horizontal = 0
 grow_vertical = 2
 color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
 
-[node name="CopyButton" type="TextureButton" parent="PauseMenu/LabelID"]
+[node name="CopyButton" type="TextureButton" parent="CenterUI/PauseMenu/LabelID"]
 layout_mode = 0
 offset_left = 282.0
 offset_top = 3.0
@@ -144,14 +353,14 @@ texture_focused = ExtResource("4_wsb5h")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterUI/PauseMenu"]
 layout_mode = 0
 offset_left = 36.0
 offset_top = 184.0
 offset_right = 316.0
 offset_bottom = 676.0
 
-[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Resume" type="Button" parent="CenterUI/PauseMenu/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 68.11)
 layout_mode = 2
@@ -159,11 +368,11 @@ theme = ExtResource("1_7ctsh")
 theme_override_font_sizes/font_size = 36
 text = "Resume"
 
-[node name="---------------" type="Control" parent="PauseMenu/VBoxContainer"]
+[node name="---------------" type="Control" parent="CenterUI/PauseMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8.66)
 layout_mode = 2
 
-[node name="InviteFriend" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="InviteFriend" type="Button" parent="CenterUI/PauseMenu/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 68.11)
 layout_mode = 2
@@ -171,11 +380,11 @@ theme = ExtResource("1_7ctsh")
 theme_override_font_sizes/font_size = 36
 text = "Invite Friend"
 
-[node name="----------------" type="Control" parent="PauseMenu/VBoxContainer"]
+[node name="----------------" type="Control" parent="CenterUI/PauseMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8.66)
 layout_mode = 2
 
-[node name="LeaveLobby" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="LeaveLobby" type="Button" parent="CenterUI/PauseMenu/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 68.11)
 layout_mode = 2
@@ -183,11 +392,11 @@ theme = ExtResource("1_7ctsh")
 theme_override_font_sizes/font_size = 36
 text = "Leave Lobby"
 
-[node name="--------------" type="Control" parent="PauseMenu/VBoxContainer"]
+[node name="--------------" type="Control" parent="CenterUI/PauseMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8.66)
 layout_mode = 2
 
-[node name="PixelizationSlider" type="HSlider" parent="PauseMenu"]
+[node name="PixelizationSlider" type="HSlider" parent="CenterUI/PauseMenu"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 2
@@ -207,7 +416,7 @@ tick_count = 4
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="PixelText" type="Label" parent="PauseMenu/PixelizationSlider"]
+[node name="PixelText" type="Label" parent="CenterUI/PauseMenu/PixelizationSlider"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = -40.0
@@ -216,7 +425,7 @@ offset_bottom = -1.0
 theme_override_font_sizes/font_size = 32
 text = "Pixelization: 1"
 
-[node name="PlayerIcon" type="TextureRect" parent="PauseMenu"]
+[node name="PlayerIcon" type="TextureRect" parent="CenterUI/PauseMenu"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -233,7 +442,7 @@ grow_vertical = 0
 texture = ExtResource("7_17uas")
 expand_mode = 1
 
-[node name="CustomizeButton" type="TextureButton" parent="PauseMenu/PlayerIcon"]
+[node name="CustomizeButton" type="TextureButton" parent="CenterUI/PauseMenu/PlayerIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -251,7 +460,7 @@ texture_focused = ExtResource("8_1c0bc")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="CustomizeMenu" type="Control" parent="PauseMenu"]
+[node name="CustomizeMenu" type="Control" parent="CenterUI/PauseMenu"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -259,19 +468,29 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -354.0
+offset_left = -285.0
 offset_top = -216.0
-offset_bottom = 152.0
+offset_right = -23.0
+offset_bottom = 135.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="PlayerColorPicker" type="ColorPicker" parent="PauseMenu/CustomizeMenu"]
+[node name="ColorRect" type="ColorRect" parent="CenterUI/PauseMenu/CustomizeMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1476717, 0.14767185, 0.14767176, 0.5254902)
+
+[node name="PlayerColorPicker" type="ColorPicker" parent="CenterUI/PauseMenu/CustomizeMenu"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 92.99999
-offset_top = 156.0
-offset_right = 391.0
-offset_bottom = 420.0
+offset_left = 11.999996
+offset_top = 20.000008
+offset_right = 310.0
+offset_bottom = 284.0
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("1_7ctsh")
 edit_alpha = false
@@ -284,20 +503,83 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-visible = false
-clip_children = 1
-position = Vector2(96.00001, 96)
-scale = Vector2(192, 192)
-mesh = SubResource("SphereMesh_wsb5h")
+[node name="HatSelector" type="Control" parent="CenterUI/PauseMenu/CustomizeMenu"]
+anchors_preset = 0
+offset_top = 236.0
+offset_right = 262.0
+offset_bottom = 299.0
 
-[node name="Minimap" type="TextureRect" parent="MeshInstance2D"]
-unique_name_in_owner = true
-offset_left = -0.50000006
-offset_top = -0.5
-offset_right = 0.49999988
-offset_bottom = 0.5
-expand_mode = 1
+[node name="HatLabel" type="Label" parent="CenterUI/PauseMenu/CustomizeMenu/HatSelector"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_right = 23.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme = ExtResource("1_7ctsh")
+theme_override_font_sizes/font_size = 26
+text = "Hat"
+
+[node name="CurrentHatLabel" type="Label" parent="CenterUI/PauseMenu/CustomizeMenu/HatSelector"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_top = 31.0
+offset_right = 23.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme = ExtResource("1_7ctsh")
+theme_override_font_sizes/font_size = 26
+text = "0"
+horizontal_alignment = 1
+
+[node name="PrevHatButton" type="Button" parent="CenterUI/PauseMenu/CustomizeMenu/HatSelector"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 29.0
+offset_right = 98.0
+offset_bottom = 58.0
+focus_mode = 0
+
+[node name="PrevLabel" type="Label" parent="CenterUI/PauseMenu/CustomizeMenu/HatSelector/PrevHatButton"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.0
+offset_right = 25.0
+offset_bottom = 33.0
+grow_horizontal = 2
+theme = ExtResource("1_7ctsh")
+theme_override_font_sizes/font_size = 28
+text = "<"
+horizontal_alignment = 1
+
+[node name="NextHatButton" type="Button" parent="CenterUI/PauseMenu/CustomizeMenu/HatSelector"]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 29.0
+offset_right = 201.0
+offset_bottom = 58.0
+focus_mode = 0
+
+[node name="NextLabel" type="Label" parent="CenterUI/PauseMenu/CustomizeMenu/HatSelector/NextHatButton"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_right = 20.0
+offset_bottom = 33.0
+grow_horizontal = 2
+theme = ExtResource("1_7ctsh")
+theme_override_font_sizes/font_size = 28
+text = ">"
+horizontal_alignment = 1
 
 [node name="MinimapViewport" type="SubViewport" parent="."]
 handle_input_locally = false
@@ -310,7 +592,6 @@ positional_shadow_atlas_quad_3 = 0
 [node name="MinimapCam" type="Camera3D" parent="MinimapViewport"]
 unique_name_in_owner = true
 transform = Transform3D(-0.64278764, -0.76604444, -3.3484866e-08, 0, -4.371139e-08, 1, -0.76604444, 0.64278764, 2.809714e-08, 0, 15, 0)
-visible = false
 projection = 1
 size = 14.305
 far = 1947.6
@@ -330,13 +611,13 @@ grow_vertical = 2
 texture = ExtResource("8_wsb5h")
 expand_mode = 1
 
-[connection signal="pressed" from="PauseMenu/LabelID/CopyButton" to="PauseMenu" method="_on_copy_button_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/InviteFriend" to="PauseMenu" method="_on_invite_friend_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/LeaveLobby" to="PauseMenu" method="_on_leave_lobby_pressed"]
-[connection signal="value_changed" from="PauseMenu/PixelizationSlider" to="." method="_on_pixelization_slider_value_changed"]
-[connection signal="pressed" from="PauseMenu/PlayerIcon/CustomizeButton" to="." method="_on_customize_button_pressed"]
-[connection signal="toggled" from="PauseMenu/PlayerIcon/CustomizeButton" to="." method="_on_customize_button_toggled"]
-[connection signal="toggled" from="PauseMenu/PlayerIcon/CustomizeButton" to="PauseMenu" method="_on_customize_button_toggled"]
-[connection signal="color_changed" from="PauseMenu/CustomizeMenu/PlayerColorPicker" to="." method="_on_player_color_picker_color_changed"]
-[connection signal="color_changed" from="PauseMenu/CustomizeMenu/PlayerColorPicker" to="PauseMenu" method="_on_player_color_picker_color_changed"]
+[connection signal="pressed" from="CenterUI/PauseMenu/LabelID/CopyButton" to="CenterUI/PauseMenu" method="_on_copy_button_pressed"]
+[connection signal="pressed" from="CenterUI/PauseMenu/VBoxContainer/Resume" to="CenterUI/PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterUI/PauseMenu/VBoxContainer/InviteFriend" to="CenterUI/PauseMenu" method="_on_invite_friend_pressed"]
+[connection signal="pressed" from="CenterUI/PauseMenu/VBoxContainer/LeaveLobby" to="CenterUI/PauseMenu" method="_on_leave_lobby_pressed"]
+[connection signal="value_changed" from="CenterUI/PauseMenu/PixelizationSlider" to="." method="_on_pixelization_slider_value_changed"]
+[connection signal="pressed" from="CenterUI/PauseMenu/PlayerIcon/CustomizeButton" to="." method="_on_customize_button_pressed"]
+[connection signal="toggled" from="CenterUI/PauseMenu/PlayerIcon/CustomizeButton" to="." method="_on_customize_button_toggled"]
+[connection signal="toggled" from="CenterUI/PauseMenu/PlayerIcon/CustomizeButton" to="CenterUI/PauseMenu" method="_on_customize_button_toggled"]
+[connection signal="color_changed" from="CenterUI/PauseMenu/CustomizeMenu/PlayerColorPicker" to="." method="_on_player_color_picker_color_changed"]
+[connection signal="color_changed" from="CenterUI/PauseMenu/CustomizeMenu/PlayerColorPicker" to="CenterUI/PauseMenu" method="_on_player_color_picker_color_changed"]
