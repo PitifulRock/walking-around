@@ -32,7 +32,7 @@ func _interact():
 	
 	if !in_dialogue and off_cooldown:
 		writing_line = false
-		Manager.local_player.ui.dialogue_box.visible = true
+		Master.local_player.ui.dialogue_box.visible = true
 		type_line(dialogue.spliced_lines[0])
 		in_dialogue = true
 		_cooldown()
@@ -41,8 +41,8 @@ func end_dialogue():
 	writing_line = false
 	in_dialogue = false
 	current_line = 0
-	Manager.local_player.ui.dialogue_box.visible = false
-	Manager.local_player.ui.dialogue_text.text = ""
+	Master.local_player.ui.dialogue_box.visible = false
+	Master.local_player.ui.dialogue_text.text = ""
 
 func type_line(line : String):
 	if writing_line:
@@ -58,7 +58,7 @@ func type_line(line : String):
 	
 	for i in line.length():
 		if writing_line:
-			if Manager.local_player.ui.dialogue_text.text == line:
+			if Master.local_player.ui.dialogue_text.text == line:
 				break
 			
 			if line_length > MAX_LINE_SIZE:
@@ -68,7 +68,7 @@ func type_line(line : String):
 			line_length+=1
 			
 			displayed_text += line[current_char]
-			Manager.local_player.ui.dialogue_text.text = displayed_text
+			Master.local_player.ui.dialogue_text.text = displayed_text
 			
 			if voice_player: 
 				if !VOICE_EXCLUDE.contains(line[current_char]):
@@ -94,6 +94,6 @@ func display_full(line : String):
 		line_length+=1
 		
 		displayed_text += line[current_char]
-		Manager.local_player.ui.dialogue_text.text = displayed_text
+		Master.local_player.ui.dialogue_text.text = displayed_text
 		
 		current_char +=1

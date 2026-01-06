@@ -1,23 +1,33 @@
 extends Node
 
-@export var player_scene : PackedScene
-@export var spawn_path : Node3D
+signal scene_ready
 
+@onready var post_process: Control = $PostProcess
+
+@export var player_scene : PackedScene
+@export var world_scene : PackedScene
+@export var menu_scene : PackedScene
+@export var default_scene : Node
+
+var spawn_path : Node3D
 var lobby_id : int = 0
 var peer : SteamMultiplayerPeer
 var is_host : bool = false
 var is_joining : bool = false
+var current_scene : Node
 
 func _ready() -> void:
-	Manager.network_manager = self
-	%EnterLobbyID.visible = false
+	current_scene = default_scene
+	Master.game_manager = self
 	print("Init: ", Steam.steamInit(480, true))
 	Steam.initRelayNetworkAccess()
 	Steam.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_joined.connect(_on_lobby_joined)
+	multiplayer.server_disconnected.connect(_on_lobby_closed)
 
 func host_server() -> void:
 	Steam.createLobby(Steam.LobbyType.LOBBY_TYPE_PUBLIC, 16)
+	
 	is_host = true
 
 func _on_lobby_created(result: int, passed_lobby_id:int):
@@ -31,10 +41,11 @@ func _on_lobby_created(result: int, passed_lobby_id:int):
 		multiplayer.multiplayer_peer = peer
 		multiplayer.peer_connected.connect(_add_player)
 		multiplayer.peer_disconnected.connect(_remove_player)
+		
+		switch_scene(world_scene)
+		await scene_ready
 		_add_player()
-		
-		hide_menu()
-		
+		Steam.activateGameOverlayInviteDialog(Steam.getSteamID())
 		print("Lobby ID: ", lobby_id)
 
 func join_lobby(passed_lobby_id : int):
@@ -49,36 +60,43 @@ func _on_lobby_joined(passed_lobby_id : int, _perms : int, _locked : bool, _resp
 	peer.server_relay = true
 	peer.create_client(Steam.getLobbyOwner(passed_lobby_id))
 	multiplayer.multiplayer_peer = peer
-	hide_menu()
+	switch_scene(world_scene)
 	
 	is_joining = false
 
 func _add_player(id : int = 1):
+	if current_scene is not World: return
 	var player = player_scene.instantiate()
 	player.name = str(id)
-	spawn_path.call_deferred("add_child", player)
+	current_scene.player_path.call_deferred("add_child", player)
 
 func _remove_player(id : int):
-	if !spawn_path.has_node(str(id)):
+	if !current_scene.player_path.has_node(str(id)):
 		return
-	spawn_path.get_node(str(id)).queue_free()
+	current_scene.player_path.get_node(str(id)).queue_free()
 
-func remove_from_lobby(player_id : int):
+func remove_from_lobby(_player_id : int):
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
 	Steam.leaveLobby(lobby_id)
-	_remove_player(player_id)
+	
+func _on_lobby_closed():
+	switch_scene(menu_scene)
 
-func hide_menu():
-	$PauseMenu.visible = false
-	$PauseMenu.process_mode = Node.PROCESS_MODE_DISABLED
-func show_menu():
-	$PauseMenu.visible = true
-	$PauseMenu.process_mode = Node.PROCESS_MODE_INHERIT
-
-func _on_host_button_pressed() -> void:
-	host_server()
-func _on_join_button_pressed() -> void:
-	%EnterLobbyID.visible = true
-func _on_enter_lobby_id_text_changed(new_text: String) -> void:
-	%EnterID.disabled = (new_text.length() == 0)
-func _on_enter_id_pressed() -> void:
-	join_lobby(%EnterLobbyID.text.to_int())
+func switch_scene(scene : PackedScene):
+	current_scene.queue_free()
+	await get_tree().process_frame
+	
+	var inst = scene.instantiate()
+	add_child(inst)
+	
+	await get_tree().process_frame
+	current_scene = inst
+	
+	if inst is World:
+		$MultiplayerSpawner.spawn_path = inst.player_path.get_path()
+	else:
+		$MultiplayerSpawner.spawn_path = inst.get_path()
+	
+	scene_ready.emit()
+	print("Scene switched to ", current_scene.name)

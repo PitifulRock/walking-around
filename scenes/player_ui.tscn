@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://boq0nuabxsj4x"]
+[gd_scene load_steps=12 format=3 uid="uid://boq0nuabxsj4x"]
 
 [ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="1_7ctsh"]
 [ext_resource type="Script" uid="uid://djxu1lgdgmoqh" path="res://scripts/player_ui.gd" id="1_bkx2g"]
@@ -6,6 +6,12 @@
 [ext_resource type="Script" uid="uid://jt3rxs80jvda" path="res://scripts/pause_menu.gd" id="3_n31oh"]
 [ext_resource type="Texture2D" uid="uid://b0dq4wgoxcw0x" path="res://textures/clipboard.png" id="4_wsb5h"]
 [ext_resource type="Texture2D" uid="uid://jxnsin6q1hbs" path="res://textures/clipboard_2.png" id="5_g4s8q"]
+[ext_resource type="Texture2D" uid="uid://dppcu288vqn0p" path="res://textures/player_inner.png" id="7_17uas"]
+[ext_resource type="Texture2D" uid="uid://dfkpq4pjtuoim" path="res://textures/player_outline.png" id="8_1c0bc"]
+[ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="8_wsb5h"]
+[ext_resource type="Texture2D" uid="uid://clw0seokeii6i" path="res://textures/player_outline_highlight.png" id="9_2tylp"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wsb5h"]
 
 [node name="PlayerUI" type="Control"]
 layout_mode = 3
@@ -75,7 +81,6 @@ patch_margin_right = 57
 patch_margin_bottom = 57
 
 [node name="PauseMenu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,7 +98,7 @@ offset_bottom = 122.0
 theme = ExtResource("1_7ctsh")
 theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
-text = "[wave]rv there yet"
+text = "[wave]darren's game"
 fit_content = true
 
 [node name="LabelID" type="RichTextLabel" parent="PauseMenu"]
@@ -158,6 +163,18 @@ text = "Resume"
 custom_minimum_size = Vector2(0, 8.66)
 layout_mode = 2
 
+[node name="InviteFriend" type="Button" parent="PauseMenu/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 68.11)
+layout_mode = 2
+theme = ExtResource("1_7ctsh")
+theme_override_font_sizes/font_size = 36
+text = "Invite Friend"
+
+[node name="----------------" type="Control" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8.66)
+layout_mode = 2
+
 [node name="LeaveLobby" type="Button" parent="PauseMenu/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 68.11)
@@ -170,14 +187,156 @@ text = "Leave Lobby"
 custom_minimum_size = Vector2(0, 8.66)
 layout_mode = 2
 
-[node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="PixelizationSlider" type="HSlider" parent="PauseMenu"]
 texture_filter = 1
-custom_minimum_size = Vector2(0, 68.11)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -60.0
+offset_right = 316.0
+offset_bottom = -36.0
+grow_vertical = 0
+scale = Vector2(1.2, 1.2)
 theme = ExtResource("1_7ctsh")
-theme_override_font_sizes/font_size = 36
-text = "Quit"
+max_value = 6.0
+step = 2.0
+value = 2.0
+tick_count = 4
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="PixelText" type="Label" parent="PauseMenu/PixelizationSlider"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = -40.0
+offset_right = 212.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 32
+text = "Pixelization: 1"
+
+[node name="PlayerIcon" type="TextureRect" parent="PauseMenu"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -248.0
+offset_right = 4.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("7_17uas")
+expand_mode = 1
+
+[node name="CustomizeButton" type="TextureButton" parent="PauseMenu/PlayerIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme = ExtResource("1_7ctsh")
+toggle_mode = true
+texture_normal = ExtResource("8_1c0bc")
+texture_pressed = ExtResource("8_1c0bc")
+texture_hover = ExtResource("9_2tylp")
+texture_disabled = ExtResource("8_1c0bc")
+texture_focused = ExtResource("8_1c0bc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CustomizeMenu" type="Control" parent="PauseMenu"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -354.0
+offset_top = -216.0
+offset_bottom = 152.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="PlayerColorPicker" type="ColorPicker" parent="PauseMenu/CustomizeMenu"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 92.99999
+offset_top = 156.0
+offset_right = 391.0
+offset_bottom = 420.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("1_7ctsh")
+edit_alpha = false
+edit_intensity = false
+picker_shape = 2
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+clip_children = 1
+position = Vector2(96.00001, 96)
+scale = Vector2(192, 192)
+mesh = SubResource("SphereMesh_wsb5h")
+
+[node name="Minimap" type="TextureRect" parent="MeshInstance2D"]
+unique_name_in_owner = true
+offset_left = -0.50000006
+offset_top = -0.5
+offset_right = 0.49999988
+offset_bottom = 0.5
+expand_mode = 1
+
+[node name="MinimapViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+anisotropic_filtering_level = 0
+positional_shadow_atlas_quad_0 = 0
+positional_shadow_atlas_quad_1 = 0
+positional_shadow_atlas_quad_2 = 0
+positional_shadow_atlas_quad_3 = 0
+
+[node name="MinimapCam" type="Camera3D" parent="MinimapViewport"]
+unique_name_in_owner = true
+transform = Transform3D(-0.64278764, -0.76604444, -3.3484866e-08, 0, -4.371139e-08, 1, -0.76604444, 0.64278764, 2.809714e-08, 0, 15, 0)
+visible = false
+projection = 1
+size = 14.305
+far = 1947.6
+
+[node name="TextureRect" type="TextureRect" parent="MinimapViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -43.199997
+offset_right = 54.0
+offset_bottom = 43.199997
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_wsb5h")
+expand_mode = 1
 
 [connection signal="pressed" from="PauseMenu/LabelID/CopyButton" to="PauseMenu" method="_on_copy_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/InviteFriend" to="PauseMenu" method="_on_invite_friend_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/LeaveLobby" to="PauseMenu" method="_on_leave_lobby_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="PauseMenu/PixelizationSlider" to="." method="_on_pixelization_slider_value_changed"]
+[connection signal="pressed" from="PauseMenu/PlayerIcon/CustomizeButton" to="." method="_on_customize_button_pressed"]
+[connection signal="toggled" from="PauseMenu/PlayerIcon/CustomizeButton" to="." method="_on_customize_button_toggled"]
+[connection signal="toggled" from="PauseMenu/PlayerIcon/CustomizeButton" to="PauseMenu" method="_on_customize_button_toggled"]
+[connection signal="color_changed" from="PauseMenu/CustomizeMenu/PlayerColorPicker" to="." method="_on_player_color_picker_color_changed"]
+[connection signal="color_changed" from="PauseMenu/CustomizeMenu/PlayerColorPicker" to="PauseMenu" method="_on_player_color_picker_color_changed"]

@@ -1,16 +1,42 @@
 extends Control
 
-@onready var player_id = $"../..".name.to_int()
+var player : Player
+var player_id : int
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$LabelID.text = str("Lobby ID: ", Manager.network_manager.lobby_id)
+	$LabelID.text = str("Lobby ID: ", Master.game_manager.lobby_id)
+	await get_tree().process_frame
+	player.game_unpaused.connect(save_settings)
 	
+	load_settings()
+
+func _on_player_color_picker_color_changed(color: Color) -> void:
+	player.model.player_color = color
+	%PlayerIcon.self_modulate = color
+func _on_customize_button_toggled(toggled_on: bool) -> void:
+	%CustomizeMenu.visible = toggled_on
 
 func _on_copy_button_pressed() -> void:
-	DisplayServer.clipboard_set(str(Manager.network_manager.lobby_id))
+	DisplayServer.clipboard_set(str(Master.game_manager.lobby_id))
 func _on_leave_lobby_pressed() -> void:
-	Manager.network_manager.remove_from_lobby(player_id)
-	Manager.network_manager.show_menu()
+	Master.game_manager.remove_from_lobby(player_id)
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+func _on_resume_pressed() -> void:
+	player.pause()
+func _on_invite_friend_pressed() -> void:
+	Steam.activateGameOverlayInviteDialog(Master.game_manager.lobby_id)
+
+func save_settings():
+	#SettingsManager.save_audio_setting("sfx_volume")
+	#SettingsManager.save_audio_setting("music_volume")
+	SettingsManager.save_video_setting("pixelization", $PixelizationSlider.value)
+	SettingsManager.save_player_setting("color", %PlayerColorPicker.color)
+	#SettingsManager.save_player_setting("color", %PlayerColorPicker.color)
+
+func load_settings():
+	var video_settings = SettingsManager.get_video_settings()
+	var player_settings = SettingsManager.get_player_settings()
+	$PixelizationSlider.value = video_settings["pixelization"]
+	%PlayerColorPicker.color = player_settings["color"]
+	player.model.player_color = player_settings["color"]

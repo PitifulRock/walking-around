@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfqwgo4m62soi"]
+
+[ext_resource type="Texture2D" uid="uid://novwxvf17dme" path="res://textures/hat.png" id="1_kxha3"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nw4q1"]
+top_radius = 0.33
+bottom_radius = 0.33
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kh4w6"]
+render_priority = 1
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.16787231, 0.30211988, 0.52637196, 1)
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_heb7b"]
+next_pass = SubResource("StandardMaterial3D_kh4w6")
+blend_mode = 3
+shading_mode = 0
+stencil_mode = 2
+stencil_flags = 2
+stencil_color = Color(0.16787231, 0.30211988, 0.52637196, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nshi1"]
+render_priority = 1
+next_pass = SubResource("StandardMaterial3D_heb7b")
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.03
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n62xa"]
+next_pass = SubResource("StandardMaterial3D_nshi1")
+shading_mode = 0
+albedo_texture = ExtResource("1_kxha3")
+uv1_scale = Vector3(2.22, 2.22, 2.22)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 150.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.03
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8pyvi"]
+top_radius = 0.0
+bottom_radius = 0.24
+height = 0.515
+
+[node name="WizardHat" type="Node3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.0674553, -0.26559246, 0, 0.26559246, 1.0674553, 0, -0.073661804, 0.023524642)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_nw4q1")
+surface_material_override/0 = SubResource("StandardMaterial3D_n62xa")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28737998, 0)
+mesh = SubResource("CylinderMesh_8pyvi")
+surface_material_override/0 = SubResource("StandardMaterial3D_n62xa")

@@ -1,19 +1,28 @@
-[gd_scene load_steps=41 format=4 uid="uid://cp74i5p07ihqg"]
+[gd_scene load_steps=44 format=4 uid="uid://tndnmpuu1mxy"]
 
-[ext_resource type="Script" uid="uid://dga15sx40s7ix" path="res://scripts/world_script.gd" id="1_at5dv"]
-[ext_resource type="Shader" uid="uid://bdgbdmw2hh77q" path="res://addons/simplegrasstextured/shaders/grass_unshaded.gdshader" id="4_g14j6"]
-[ext_resource type="Texture2D" uid="uid://cfl46h32ebur4" path="res://textures/grass_triangle.png" id="4_ykrsh"]
-[ext_resource type="Script" uid="uid://2juaclm8gc1n" path="res://addons/simplegrasstextured/grass.gd" id="5_vbegm"]
-[ext_resource type="Shader" uid="uid://cdooqj4aiumdm" path="res://addons/simplegrasstextured/shaders/grass_unshaded_nearest.gdshader" id="7_vbegm"]
-[ext_resource type="Shader" uid="uid://cviuf7vpfu51r" path="res://shaders/water.gdshader" id="7_xersf"]
-[ext_resource type="PackedScene" uid="uid://d2raxvx037wde" path="res://entities/ephraim.tscn" id="8_ehkex"]
+[ext_resource type="Shader" uid="uid://b0u8e3sf7tm0u" path="res://pixelate.gdshader" id="1_juf05"]
+[ext_resource type="Shader" uid="uid://bdgbdmw2hh77q" path="res://addons/simplegrasstextured/shaders/grass_unshaded.gdshader" id="2_s66br"]
+[ext_resource type="Texture2D" uid="uid://cfl46h32ebur4" path="res://textures/grass_triangle.png" id="3_dw4a5"]
+[ext_resource type="Script" uid="uid://2juaclm8gc1n" path="res://addons/simplegrasstextured/grass.gd" id="4_r6518"]
+[ext_resource type="Shader" uid="uid://cviuf7vpfu51r" path="res://shaders/water.gdshader" id="5_mkc01"]
+[ext_resource type="Shader" uid="uid://cdooqj4aiumdm" path="res://addons/simplegrasstextured/shaders/grass_unshaded_nearest.gdshader" id="6_qr5sr"]
+[ext_resource type="PackedScene" uid="uid://d2raxvx037wde" path="res://entities/ephraim.tscn" id="7_62k8e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mf4mk"]
+shader = ExtResource("1_juf05")
+shader_parameter/pixel_size = 1
+shader_parameter/screen_size = Vector2(1000, 800)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8uh7m"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_vbegm"]
+sky_material = SubResource("ProceduralSkyMaterial_8uh7m")
 
 [sub_resource type="Environment" id="Environment_ppyta"]
-background_mode = 1
-background_color = Color(0.3090679, 0.7538913, 0.92654145, 1)
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.21
+background_mode = 2
+sky = SubResource("Sky_vbegm")
 tonemap_mode = 2
 ssr_depth_tolerance = 15.71
 glow_strength = 1.28
@@ -24,12 +33,12 @@ glow_hdr_threshold = 0.46
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g14j6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_at5dv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dw4a5"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("4_g14j6")
+shader = ExtResource("2_s66br")
 shader_parameter/albedo = Color(0.42037162, 0.2978172, 0.15825993, 1)
-shader_parameter/texture_albedo = ExtResource("4_ykrsh")
+shader_parameter/texture_albedo = ExtResource("3_dw4a5")
 shader_parameter/texture_frames = Vector2(1, 1)
 shader_parameter/light_mode = 2
 shader_parameter/alpha_scissor_threshold = 0.5
@@ -59,7 +68,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_at5dv"),
+"material": SubResource("ShaderMaterial_dw4a5"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -138,7 +147,7 @@ seamless_blend_skirt = 0.391
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5tkv4"]
 render_priority = 0
-shader = ExtResource("7_xersf")
+shader = ExtResource("5_mkc01")
 shader_parameter/albedo = Color(0.1511297, 0.67308515, 0.99999994, 1)
 shader_parameter/noise_displace = SubResource("NoiseTexture2D_5tkv4")
 shader_parameter/noise_strength = 0.17999999597664
@@ -169,12 +178,12 @@ size = Vector3(400, 1, 400)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ykrsh"]
 data = PackedVector3Array(-200, 0.5, 200, 200, 0.5, 200, -200, -0.5, 200, 200, 0.5, 200, 200, -0.5, 200, -200, -0.5, 200, 200, 0.5, -200, -200, 0.5, -200, 200, -0.5, -200, -200, 0.5, -200, -200, -0.5, -200, 200, -0.5, -200, 200, 0.5, 200, 200, 0.5, -200, 200, -0.5, 200, 200, 0.5, -200, 200, -0.5, -200, 200, -0.5, 200, -200, 0.5, -200, -200, 0.5, 200, -200, -0.5, -200, -200, 0.5, 200, -200, -0.5, 200, -200, -0.5, -200, 200, 0.5, 200, -200, 0.5, 200, 200, 0.5, -200, -200, 0.5, 200, -200, 0.5, -200, 200, 0.5, -200, -200, -0.5, 200, 200, -0.5, 200, -200, -0.5, -200, 200, -0.5, 200, 200, -0.5, -200, -200, -0.5, -200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcd4p"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r6518"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("7_vbegm")
+shader = ExtResource("6_qr5sr")
 shader_parameter/albedo = Color(0.50010127, 0.7149079, 0.22392383, 1)
-shader_parameter/texture_albedo = ExtResource("4_ykrsh")
+shader_parameter/texture_albedo = ExtResource("3_dw4a5")
 shader_parameter/texture_frames = Vector2(1, 1)
 shader_parameter/light_mode = 2
 shader_parameter/alpha_scissor_threshold = 0.5
@@ -204,7 +213,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_jcd4p"),
+"material": SubResource("ShaderMaterial_r6518"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -276,13 +285,28 @@ _data = {
 
 [sub_resource type="GDScript" id="GDScript_uty7l"]
 
-[node name="World" type="Node3D" node_paths=PackedStringArray("player_path")]
-script = ExtResource("1_at5dv")
-player_path = NodePath("PlayerSpawn")
-
-[node name="PlayerSpawn" type="Marker3D" parent="."]
+[node name="World" type="Node3D"]
 
 [node name="Node" type="Node" parent="."]
+
+[node name="Control" type="Control" parent="Node"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Pixelization" type="ColorRect" parent="Node/Control"]
+material = SubResource("ShaderMaterial_mf4mk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Node"]
 environment = SubResource("Environment_ppyta")
@@ -293,16 +317,16 @@ shadow_enabled = true
 shadow_opacity = 0.7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.716795, 0.5427797, 1.3373327)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.716795, 0.78636956, 1.3373327)
 mesh = SubResource("BoxMesh_8uh7m")
 surface_material_override/0 = SubResource("StandardMaterial3D_g14j6")
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="."]
 visible = false
 multimesh = SubResource("MultiMesh_ykrsh")
-script = ExtResource("5_vbegm")
+script = ExtResource("4_r6518")
 albedo = Color(0.42037162, 0.2978172, 0.15825993, 1)
-texture_albedo = ExtResource("4_ykrsh")
+texture_albedo = ExtResource("3_dw4a5")
 light_mode = 2
 scale_h = 15.551
 scale_w = 0.406
@@ -377,9 +401,9 @@ disabled = true
 [node name="SimpleGrassTextured2" type="MultiMeshInstance3D" parent="."]
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_b0q6j")
-script = ExtResource("5_vbegm")
+script = ExtResource("4_r6518")
 albedo = Color(0.50010127, 0.7149079, 0.22392383, 1)
-texture_albedo = ExtResource("4_ykrsh")
+texture_albedo = ExtResource("3_dw4a5")
 light_mode = 2
 texture_filter = 0
 scale_h = 0.4
@@ -404,7 +428,7 @@ metadata/SimpleGrassTextured = "2.0.5"
 [node name="ForestOverlay" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.5806, 0.05343747, 84.01428)
 sorting_offset = 0.63
-size = Vector3(577.2917, 3.9780273, 584.13586)
+size = Vector3(577.292, 185.094, 584.136)
 texture_albedo = SubResource("NoiseTexture2D_xersf")
 albedo_mix = 0.46
 
@@ -415,8 +439,8 @@ libraries = {
 autoplay = "spin"
 speed_scale = 0.02
 
-[node name="Ephraim" parent="." instance=ExtResource("8_ehkex")]
-transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -1.4385834, -4.7683716e-07, 2.2348628)
+[node name="Ephraim" parent="." instance=ExtResource("7_62k8e")]
+transform = Transform3D(1.6206913, 0, -1.0200903, 0, 1.9150002, 0, 1.0200903, 0, 1.6206913, -2.414751, -4.7683716e-07, 3.5529456)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
