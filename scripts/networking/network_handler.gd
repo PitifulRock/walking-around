@@ -19,7 +19,7 @@ var current_scene : Node
 func _ready() -> void:
 	current_scene = default_scene
 	Master.game_manager = self
-	print("Init: ", Steam.steamInit(480, true))
+	Console._print("Init: ", Steam.steamInit(480, true))
 	Steam.initRelayNetworkAccess()
 	Steam.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_joined.connect(_on_lobby_joined)
@@ -45,8 +45,7 @@ func _on_lobby_created(result: int, passed_lobby_id:int):
 		switch_scene(world_scene)
 		await scene_ready
 		_add_player()
-		Steam.activateGameOverlayInviteDialog(Steam.getSteamID())
-		print("Lobby ID: ", lobby_id)
+		Console._print("Lobby ID: ", lobby_id)
 
 func join_lobby(passed_lobby_id : int):
 	is_joining = true
@@ -66,13 +65,18 @@ func _on_lobby_joined(passed_lobby_id : int, _perms : int, _locked : bool, _resp
 
 func _add_player(id : int = 1):
 	if current_scene is not World: return
-	var player = player_scene.instantiate()
-	player.name = str(id)
-	current_scene.player_path.call_deferred("add_child", player)
+	if multiplayer.is_server():
+		var player = player_scene.instantiate()
+		player.name = str(id)
+		current_scene.player_path.call_deferred("add_child", player)
+		Master.player_list[id] = player
 
 func _remove_player(id : int):
 	if !current_scene.player_path.has_node(str(id)):
 		return
+	
+	if Master.player_list.has(id):
+		Master.player_list.erase(id)
 	current_scene.player_path.get_node(str(id)).queue_free()
 
 func remove_from_lobby(_player_id : int):
@@ -81,6 +85,8 @@ func remove_from_lobby(_player_id : int):
 	Steam.leaveLobby(lobby_id)
 	
 func _on_lobby_closed():
+	multiplayer.multiplayer_peer.close()
+	Master.player_list = {}
 	switch_scene(menu_scene)
 
 func switch_scene(scene : PackedScene):
@@ -99,4 +105,4 @@ func switch_scene(scene : PackedScene):
 		$MultiplayerSpawner.spawn_path = inst.get_path()
 	
 	scene_ready.emit()
-	print("Scene switched to ", current_scene.name)
+	Console._print("Scene switched to ", current_scene.name)

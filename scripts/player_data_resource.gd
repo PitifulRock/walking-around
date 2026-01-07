@@ -2,6 +2,7 @@ class_name PlayerData
 extends Resource
 
 signal inventory_changed
+signal inv_item_added
 
 @export var max_health := 10.0
 @export var speed_mult := 1.0
@@ -14,8 +15,9 @@ signal inventory_changed
 @export_group("Save Variables")
 @export var last_position : Vector3 = Vector3.ZERO
 @export var unlocked_hats : Array = ["empty_hat.tscn", "wizard_hat.tscn"]
+@export var inventory_full := false
 
-func _add_to_inventory(item : InventoryItem):
+func _add_to_inventory(item : InventoryItem) -> bool:
 	if item.stackable:
 		var item_slots = inventory.filter(func(slot): return slot.item == item)
 		if !item_slots.is_empty():
@@ -26,6 +28,7 @@ func _add_to_inventory(item : InventoryItem):
 				empty_slots[0].item = item
 				empty_slots[0].amount = item.base_amount
 			else:
+				inventory_full = true
 				return false
 	else:
 		var empty_slots = inventory.filter(func(slot): return slot.item == null)
@@ -33,9 +36,13 @@ func _add_to_inventory(item : InventoryItem):
 			empty_slots[0].item = item
 			empty_slots[0].amount = 1
 		else:
+			inventory_full = true
 			return false
 	
+	inventory_full = false
+	inv_item_added.emit()
 	inventory_changed.emit()
+	return true
 
 func _remove_from_inventory(item : InventoryItem):
 	if item.stackable:

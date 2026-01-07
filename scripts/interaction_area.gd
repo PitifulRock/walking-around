@@ -1,7 +1,7 @@
 class_name Interactable
 extends Area3D
 
-@export var delete_on_interact := false
+#@export var delete_on_interact := false
 @export var indicator : Node
 
 var in_range := false
@@ -24,14 +24,14 @@ func _input(_event: InputEvent) -> void:
 		_interact()
 
 func _entered(body : Node3D):
-	if body is Player:
+	if body is Player and body.is_multiplayer_authority():
 		current_player = body
 		in_range = true
 		entered.emit()
 		if indicator: indicator.visible = true
 
 func _exited(body : Node3D):
-	if body is Player:
+	if body is Player and body.is_multiplayer_authority():
 		current_player = null
 		in_range = false
 		exited.emit()
@@ -40,10 +40,10 @@ func _exited(body : Node3D):
 func _interact():
 	interacted.emit(current_player)
 	if indicator: indicator.visible = false
-	if delete_on_interact: 
-		queue_free()
-		return
-	
+	#if delete_on_interact: 
+		#queue_free()
+		#return
+		
 	_cooldown()
 
 func _cooldown():

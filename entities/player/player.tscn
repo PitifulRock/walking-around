@@ -457,6 +457,9 @@ properties/8/replication_mode = 1
 properties/9/path = NodePath("Model:player_color")
 properties/9/spawn = true
 properties/9/replication_mode = 1
+properties/10/path = NodePath(".:inv_add_success")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")

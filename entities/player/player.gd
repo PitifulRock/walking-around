@@ -4,15 +4,15 @@ extends CharacterBody3D
 signal game_unpaused
 
 @export var player_data : PlayerData
-
 @onready var ID : int = self.name.to_int()
 @onready var model: Node3D = $Model
-
 @export var SPEED := 4.4
 @export var ACCELERATION := 12.0
 @export var GRAVITY := 9.8
-var current_health : float
 
+@export var inv_add_success := true
+
+var current_health : float
 var input : Vector2
 var facing_dir : Vector3
 
@@ -39,13 +39,15 @@ func pause():
 	ui.pause_menu.visible = paused
 
 func _ready() -> void:
-	if player_data: player_data = PlayerData.new()
+	if !is_multiplayer_authority(): return
+	player_data = PlayerData.new()
 	current_health = player_data.max_health
+	inv_add_success = !player_data.inventory_full
 	spawn_sequence()
 
 func spawn_sequence():
-	if !is_multiplayer_authority(): return
 	
+	current_health = player_data.max_health
 	Master.local_player = self
 	
 	$CollisionShape3D.disabled = true
@@ -91,4 +93,12 @@ func _physics_process(delta: float) -> void:
 		$GPUParticles3D.emitting = false
 	
 	move_and_slide()
-	
+
+@rpc("any_peer", "call_local", "reliable")
+func _push_to_inv(item_resource_path : String):
+	var item : InventoryItem = load(item_resource_path)
+	if item != null:
+		if player_data._add_to_inventory(item) != false:
+			inv_add_success = true
+		else:
+			inv_add_success = false

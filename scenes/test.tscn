@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://cp74i5p07ihqg"]
+[gd_scene load_steps=49 format=4 uid="uid://cp74i5p07ihqg"]
 
 [ext_resource type="Script" uid="uid://dga15sx40s7ix" path="res://scripts/world_script.gd" id="1_at5dv"]
 [ext_resource type="Shader" uid="uid://bdgbdmw2hh77q" path="res://addons/simplegrasstextured/shaders/grass_unshaded.gdshader" id="4_g14j6"]
@@ -7,8 +7,12 @@
 [ext_resource type="Shader" uid="uid://cdooqj4aiumdm" path="res://addons/simplegrasstextured/shaders/grass_unshaded_nearest.gdshader" id="7_vbegm"]
 [ext_resource type="Shader" uid="uid://cviuf7vpfu51r" path="res://shaders/water.gdshader" id="7_xersf"]
 [ext_resource type="PackedScene" uid="uid://d2raxvx037wde" path="res://entities/ephraim.tscn" id="8_ehkex"]
-[ext_resource type="PackedScene" uid="uid://cmhcfjgt1m776" path="res://items/pickups/p_stick.tscn" id="8_jcd4p"]
-[ext_resource type="PackedScene" uid="uid://csqw3pcb6g2kn" path="res://items/pickups/p_speed_stick.tscn" id="9_uacia"]
+[ext_resource type="PackedScene" uid="uid://dkbhxt3uqmiwp" path="res://items/pickups/pickup.tscn" id="8_jcd4p"]
+[ext_resource type="PackedScene" uid="uid://csqw3pcb6g2kn" path="res://items/models/m_speed_stick.tscn" id="9_uacia"]
+[ext_resource type="Script" uid="uid://dfq25dlwygv5y" path="res://items/pickups/pickup_data.gd" id="10_ajshl"]
+[ext_resource type="Resource" uid="uid://dfn01t0hmhu2k" path="res://items/pickups/resources/SpeedStick.tres" id="11_ghpyy"]
+[ext_resource type="PackedScene" uid="uid://cmhcfjgt1m776" path="res://items/models/m_stick.tscn" id="12_44saj"]
+[ext_resource type="Resource" uid="uid://umhmaxdmekyx" path="res://items/pickups/resources/stick.tres" id="13_7mbro"]
 
 [sub_resource type="Environment" id="Environment_ppyta"]
 background_mode = 1
@@ -26,7 +30,7 @@ glow_hdr_threshold = 0.46
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g14j6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uacia"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_44saj"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_g14j6")
@@ -61,7 +65,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_uacia"),
+"material": SubResource("ShaderMaterial_44saj"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -171,7 +175,7 @@ size = Vector3(400, 1, 400)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ykrsh"]
 data = PackedVector3Array(-200, 0.5, 200, 200, 0.5, 200, -200, -0.5, 200, 200, 0.5, 200, 200, -0.5, 200, -200, -0.5, 200, 200, 0.5, -200, -200, 0.5, -200, 200, -0.5, -200, -200, 0.5, -200, -200, -0.5, -200, 200, -0.5, -200, 200, 0.5, 200, 200, 0.5, -200, 200, -0.5, 200, 200, 0.5, -200, 200, -0.5, -200, 200, -0.5, 200, -200, 0.5, -200, -200, 0.5, 200, -200, -0.5, -200, -200, 0.5, 200, -200, -0.5, 200, -200, -0.5, -200, 200, 0.5, 200, -200, 0.5, 200, 200, 0.5, -200, -200, 0.5, 200, -200, 0.5, -200, 200, 0.5, -200, -200, -0.5, 200, 200, -0.5, 200, -200, -0.5, -200, 200, -0.5, 200, 200, -0.5, -200, -200, -0.5, -200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk7ts"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mbro"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_vbegm")
@@ -206,7 +210,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_yk7ts"),
+"material": SubResource("ShaderMaterial_7mbro"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -277,6 +281,16 @@ _data = {
 }
 
 [sub_resource type="GDScript" id="GDScript_uty7l"]
+
+[sub_resource type="Resource" id="Resource_ff6ho"]
+script = ExtResource("10_ajshl")
+model = ExtResource("9_uacia")
+metadata/_custom_type_script = "uid://dfq25dlwygv5y"
+
+[sub_resource type="Resource" id="Resource_7yos8"]
+script = ExtResource("10_ajshl")
+model = ExtResource("12_44saj")
+metadata/_custom_type_script = "uid://dfq25dlwygv5y"
 
 [node name="World" type="Node3D" node_paths=PackedStringArray("player_path")]
 script = ExtResource("1_at5dv")
@@ -431,8 +445,17 @@ size = 7.513
 near = 0.001
 far = 50.43
 
-[node name="Stick" parent="." instance=ExtResource("8_jcd4p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4719534, -4.7683716e-07, -1.7143018)
+[node name="Pickup" parent="." instance=ExtResource("8_jcd4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6369658, 0, 1.6745315)
+pickup_data = SubResource("Resource_ff6ho")
+item_data = ExtResource("11_ghpyy")
 
-[node name="Stick2" parent="." instance=ExtResource("9_uacia")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2967696, 0, 0.54617476)
+[node name="Pickup2" parent="." instance=ExtResource("8_jcd4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.482895, 0, -1.875613)
+pickup_data = SubResource("Resource_7yos8")
+item_data = ExtResource("13_7mbro")
+
+[node name="Pickup3" parent="." instance=ExtResource("8_jcd4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9701123, 0, -0.03605032)
+pickup_data = SubResource("Resource_7yos8")
+item_data = ExtResource("13_7mbro")
