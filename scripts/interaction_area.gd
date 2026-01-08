@@ -27,6 +27,7 @@ func _entered(body : Node3D):
 	if body is Player and body.is_multiplayer_authority():
 		current_player = body
 		in_range = true
+		body.attention_captured = true
 		entered.emit()
 		if indicator: indicator.visible = true
 
@@ -34,6 +35,7 @@ func _exited(body : Node3D):
 	if body is Player and body.is_multiplayer_authority():
 		current_player = null
 		in_range = false
+		body.attention_captured = false
 		exited.emit()
 		if indicator: indicator.visible = false
 

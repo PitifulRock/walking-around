@@ -15,6 +15,7 @@ signal game_unpaused
 var current_health : float
 var input : Vector2
 var facing_dir : Vector3
+var attention_captured := false
 
 const PLAYER_UI = preload("uid://boq0nuabxsj4x")
 var ui : Control

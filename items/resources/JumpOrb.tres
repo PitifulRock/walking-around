@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bq02eftbhce7t"]
 
-[ext_resource type="Texture2D" uid="uid://cfl46h32ebur4" path="res://textures/grass_triangle.png" id="1_f6jkk"]
+[ext_resource type="Texture2D" uid="uid://diqk2mvu6tbim" path="res://textures/item_icons/ball_albedo.png" id="1_f6jkk"]
 [ext_resource type="Script" uid="uid://cop45c1br4kbh" path="res://entities/player/inventory_system/inventory_item.gd" id="2_1agvh"]
 
 [resource]
 script = ExtResource("2_1agvh")
 item_name = "Jump Orb"
 icon = ExtResource("1_f6jkk")
+icon_albedo = Color(0, 1, 0, 1)
 stackable = false
 tool_scene_path = "uid://dap62vlaeswd7"
 metadata/_custom_type_script = "uid://cop45c1br4kbh"

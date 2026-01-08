@@ -3,7 +3,7 @@
 [ext_resource type="FontFile" uid="uid://dtf6ex10wjuju" path="res://textures/Qilka-Bold copy.otf" id="1_v5oe5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5oe5"]
-bg_color = Color(1, 0.8392157, 0.627451, 1)
+bg_color = Color(0.73446214, 0.6179654, 0.42828006, 1)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
@@ -96,7 +96,7 @@ corner_detail = 6
 default_font = ExtResource("1_v5oe5")
 default_font_size = 92
 Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_disabled_color = Color(0.77495027, 0.71016145, 0.6289514, 1)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)

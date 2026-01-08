@@ -17,7 +17,7 @@ var can_primary = true
 func _input(_event: InputEvent) -> void:
 	if !held: return
 	if !player.is_multiplayer_authority(): return
-	if Input.is_action_just_pressed("primary") and can_primary:
+	if Input.is_action_just_pressed("primary") and can_primary and !player.attention_captured:
 		_primary()
 		can_primary = false
 		await  get_tree().create_timer(0.1).timeout
@@ -33,6 +33,9 @@ func _setup():
 
 func _ready() -> void:
 	_setup()
+func _reequip():
+	_on_unequip()
+	_ready()
 func _primary():
 	pass
 

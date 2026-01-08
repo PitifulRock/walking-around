@@ -397,7 +397,21 @@ custom_minimum_size = Vector2(0, 68.11)
 layout_mode = 2
 theme = ExtResource("1_7ctsh")
 theme_override_font_sizes/font_size = 36
+disabled = true
 text = "Invite Friend"
+
+[node name="Label" type="Label" parent="CenterUI/PauseMenu/VBoxContainer/InviteFriend"]
+layout_mode = 0
+offset_right = 277.0
+offset_bottom = 66.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5647059)
+theme_override_colors/font_outline_color = Color(0.22228488, 0.14259204, 0.06807219, 1)
+theme_override_constants/line_spacing = -12
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "doesnt work
+for now "
+horizontal_alignment = 1
 
 [node name="----------------" type="Control" parent="CenterUI/PauseMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8.66)

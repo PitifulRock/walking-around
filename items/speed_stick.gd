@@ -1,10 +1,11 @@
 extends Tool
 
 @export var speed_mult = 0.6
-@onready var base_mult = speed_mult
+@export var base_mult = speed_mult
 
 func _ready() -> void:
 	_setup()
+	speed_mult = base_mult
 	player_data.speed_mult += speed_mult
 
 func _primary():

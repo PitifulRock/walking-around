@@ -22,27 +22,39 @@ func _input(_event: InputEvent) -> void:
 
 func _ready() -> void:
 	mouse_popup.hide()
+	item_icon.material = item_icon.material.duplicate()
 
 func update(slot : InventorySlot):
 	current_slot = slot
+	
+	var re_equip := false
+	if held_item != slot.item and slot_button.button_pressed:
+		_on_button_toggled(false, false)
+		re_equip = true
+
 	if !slot.item:
-		item_icon.texture = null
+		item_icon.material.set_shader_parameter("visible", false)
 		item_count.text = ""
 		item_name_label.text = ""
 		held_item = null
 		set_selected(false)
-		return
-	
-	item_icon.texture = slot.item.icon
-	if !slot.item.stackable:
-		item_count.text = ""
 	else:
-		item_count.text = str(slot.amount)
+		item_icon.material.set_shader_parameter("visible", true)
+		item_icon.material.set_shader_parameter("albedo_texture", slot.item.icon)
+		item_icon.material.set_shader_parameter("albedo_color", slot.item.icon_albedo)
+		
+		if !slot.item.stackable:
+			item_count.text = ""
+		else:
+			item_count.text = str(slot.amount)
+		
+		slot_button.toggle_mode = true
+		item_name_label.text = slot.item.item_name
+		held_item = slot.item
+		mouse_popup.hide()
 	
-	slot_button.toggle_mode = true
-	item_name_label.text = slot.item.item_name
-	held_item = slot.item
-	mouse_popup.hide()
+	if re_equip:
+		_on_button_toggled(true, false)
 
 func pressed():
 	if slot_button.button_pressed: 
@@ -54,13 +66,11 @@ func pressed():
 func _on_button_toggled(toggled_on: bool, mouse := true) -> void:
 	if mouse == false:
 		if toggled_on: 
-			get_parent().clear_slots_selected(self)
 			$MousePopup/EquipButton.text = "Unequip"
+			if held_item: held_item._on_clicked(toggled_on, self)
 		else:
 			$MousePopup/EquipButton.text = "Equip"
-		
-		if held_item:
-			held_item._on_clicked(toggled_on, self)
+			if spawned_item: held_item._on_clicked(toggled_on, self)
 		
 		if toggled_on: $AnimationPlayer.play("select_anim")
 		else: $AnimationPlayer.play("RESET")
@@ -86,10 +96,7 @@ func _on_bg_button_mouse_exited() -> void:
 
 
 func _on_equip_button_pressed() -> void:
-	if slot_button.button_pressed:
-		_on_button_toggled(false, false)
-	else:
-		_on_button_toggled(true, false)
+	pressed()
 	mouse_popup.hide()
 
 func _on_drop_all_pressed() -> void:

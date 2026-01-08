@@ -27,7 +27,7 @@ glow_hdr_threshold = 0.46
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g14j6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uacia"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk7ts"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_g14j6")
@@ -62,7 +62,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_uacia"),
+"material": SubResource("ShaderMaterial_yk7ts"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -172,7 +172,7 @@ size = Vector3(400, 1, 400)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ykrsh"]
 data = PackedVector3Array(-200, 0.5, 200, 200, 0.5, 200, -200, -0.5, 200, 200, 0.5, 200, 200, -0.5, 200, -200, -0.5, 200, 200, 0.5, -200, -200, 0.5, -200, 200, -0.5, -200, -200, 0.5, -200, -200, -0.5, -200, 200, -0.5, -200, 200, 0.5, 200, 200, 0.5, -200, 200, -0.5, 200, 200, 0.5, -200, 200, -0.5, -200, 200, -0.5, 200, -200, 0.5, -200, -200, 0.5, 200, -200, -0.5, -200, -200, 0.5, 200, -200, -0.5, 200, -200, -0.5, -200, 200, 0.5, 200, -200, 0.5, 200, 200, 0.5, -200, -200, 0.5, 200, -200, 0.5, -200, 200, 0.5, -200, -200, -0.5, 200, 200, -0.5, 200, -200, -0.5, -200, 200, -0.5, 200, 200, -0.5, -200, -200, -0.5, -200)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk7ts"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajshl"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_vbegm")
@@ -207,7 +207,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray("AAABAAIAAwABAAAABAAFAAYABwAFAAQA"),
-"material": SubResource("ShaderMaterial_yk7ts"),
+"material": SubResource("ShaderMaterial_ajshl"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -443,10 +443,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6726413, 0, -4.8144526)
 pickup_data = ExtResource("9_uacia")
 
 [node name="Pickup7" parent="." instance=ExtResource("8_jcd4p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92871, 0, -0.43041134)
-pickup_data = ExtResource("9_uacia")
-
-[node name="Pickup8" parent="." instance=ExtResource("8_jcd4p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92871, 0, -0.43041134)
 pickup_data = ExtResource("9_uacia")
 

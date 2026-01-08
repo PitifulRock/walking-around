@@ -16,6 +16,7 @@ func _ready() -> void:
 	interacted.connect(_pick_up)
 
 func setup(data : PickupData):
+	if !data: return
 	for i in get_children():
 		if i is Tool: 
 			i.queue_free()

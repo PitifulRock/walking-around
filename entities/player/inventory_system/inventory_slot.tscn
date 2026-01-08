@@ -1,10 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://b1ys0uh5xu7fe"]
+[gd_scene load_steps=18 format=3 uid="uid://b1ys0uh5xu7fe"]
 
 [ext_resource type="Script" uid="uid://y48cg0a5ii5w" path="res://entities/player/inventory_system/inventory_slot.gd" id="1_35e3l"]
 [ext_resource type="Texture2D" uid="uid://bflc0yit05t24" path="res://textures/ui/base_square.png" id="2_v518j"]
 [ext_resource type="Texture2D" uid="uid://dnhanj2yrjn3y" path="res://textures/ui/box_selected.png" id="3_33m1n"]
 [ext_resource type="Texture2D" uid="uid://br7ca7npe67cj" path="res://textures/ui/box_highlight.png" id="3_v518j"]
 [ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="4_angbd"]
+[ext_resource type="Shader" uid="uid://cv251gkmu3dtg" path="res://shaders/mix_color.gdshader" id="6_te65i"]
+[ext_resource type="Texture2D" uid="uid://diqk2mvu6tbim" path="res://textures/item_icons/ball_albedo.png" id="7_dw85t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dw85t"]
+shader = ExtResource("6_te65i")
+shader_parameter/visible = true
+shader_parameter/albedo_texture = ExtResource("7_dw85t")
+shader_parameter/albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dw85t"]
 
 [sub_resource type="Animation" id="Animation_te65i"]
 length = 0.001
@@ -178,6 +188,7 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="ItemIcon" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dw85t")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = -1
@@ -186,6 +197,7 @@ anchor_bottom = 1.0
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_dw85t")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
