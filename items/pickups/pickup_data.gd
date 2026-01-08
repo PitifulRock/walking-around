@@ -1,4 +1,5 @@
 extends Resource
 class_name PickupData
 
-@export var model : PackedScene
+@export_file("*.tscn") var model_path : String
+@export var item : InventoryItem

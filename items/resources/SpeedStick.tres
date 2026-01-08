@@ -8,6 +8,6 @@ script = ExtResource("2_6kmu0")
 item_name = "Speed Stick"
 icon = ExtResource("1_6wxne")
 stackable = false
-tool = true
 tool_scene_path = "uid://btrunafcjivp4"
+pickup_data = "uid://2nio0mbjcrrb"
 metadata/_custom_type_script = "uid://cop45c1br4kbh"

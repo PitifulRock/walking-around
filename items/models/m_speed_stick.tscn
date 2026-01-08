@@ -12,7 +12,7 @@ stencil_flags = 1
 stencil_compare = 5
 metadata/_stencil_owned = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8bgq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kjjo"]
 next_pass = SubResource("StandardMaterial3D_wdq2y")
 shading_mode = 0
 albedo_color = Color(0.26376894, 0.6739557, 0.99999994, 1)
@@ -21,14 +21,14 @@ stencil_flags = 2
 stencil_outline_thickness = 0.042
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_r8bgq"]
-material = SubResource("StandardMaterial3D_r8bgq")
+material = SubResource("StandardMaterial3D_1kjjo")
 top_radius = 0.04
 bottom_radius = 0.04
 height = 0.6
 radial_segments = 32
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_b5rwa"]
-material = SubResource("StandardMaterial3D_r8bgq")
+material = SubResource("StandardMaterial3D_1kjjo")
 top_radius = 0.04
 bottom_radius = 0.04
 height = 0.25

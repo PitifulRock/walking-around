@@ -95,10 +95,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -49.5
-offset_top = -442.0
-offset_right = 50.5
-offset_bottom = -30.0
+offset_left = -53.5
+offset_top = -440.0
+offset_right = 206.5
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 0
@@ -248,6 +248,7 @@ offset_right = 512.0
 offset_bottom = 384.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="DialogueBox" type="Control" parent="CenterUI"]
 visible = false

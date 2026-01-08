@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickupData" load_steps=3 format=3 uid="uid://2nio0mbjcrrb"]
+
+[ext_resource type="Resource" uid="uid://dfn01t0hmhu2k" path="res://items/resources/SpeedStick.tres" id="1_qaiw7"]
+[ext_resource type="Script" uid="uid://dfq25dlwygv5y" path="res://items/pickups/pickup_data.gd" id="3_jbop3"]
+
+[resource]
+script = ExtResource("3_jbop3")
+model_path = "uid://csqw3pcb6g2kn"
+item = ExtResource("1_qaiw7")
+metadata/_custom_type_script = "uid://dfq25dlwygv5y"

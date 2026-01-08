@@ -6,9 +6,9 @@ signal game_unpaused
 @export var player_data : PlayerData
 @onready var ID : int = self.name.to_int()
 @onready var model: Node3D = $Model
-@export var SPEED := 4.4
+@export var SPEED := 5.0
 @export var ACCELERATION := 12.0
-@export var GRAVITY := 9.8
+@export var GRAVITY := 28.0
 
 @export var inv_add_success := true
 
@@ -78,27 +78,41 @@ func _physics_process(delta: float) -> void:
 		var angle = input.angle() + deg_to_rad(45)
 		facing_dir = Vector3(sin(angle),0.0,cos(angle)).normalized()
 		rotation.y = lerp_angle(rotation.y, angle, 20*delta)
-		velocity = -facing_dir * SPEED * player_data.speed_mult
+		var walk_velocity = -facing_dir * SPEED * player_data.speed_mult
+		velocity = Vector3(walk_velocity.x, velocity.y, walk_velocity.z)
 	else:
-		velocity = velocity.lerp(Vector3.ZERO, ACCELERATION * delta)
+		velocity.x = lerpf(velocity.x, 0.0, ACCELERATION * delta)
+		velocity.z = lerpf(velocity.z, 0.0, ACCELERATION * delta)
 	
 	if !is_on_floor():
-		velocity.y = -GRAVITY
+		velocity.y -= GRAVITY * delta
+		velocity.y = max(velocity.y, -20.0)
 	
 	$AnimationPlayer.speed_scale = 1+(player_data.speed_mult-1.0)/2
-	if input.length() > 0:
-		$AnimationPlayer.play("run")
+	
+	if is_on_floor():
+		if input.length() > 0:
+			$AnimationPlayer.play("run")
+		else:
+			$AnimationPlayer.play("idle")
 	else:
-		$AnimationPlayer.play("idle")
-		$GPUParticles3D.emitting = false
+		if velocity.y > 0:
+			$AnimationPlayer.play("airborne")
+		else:
+			$AnimationPlayer.play("fall")
 	
 	move_and_slide()
 
 @rpc("any_peer", "call_local", "reliable")
-func _push_to_inv(item_resource_path : String):
+func _push_to_inv(item_resource_path : String, amount:=1):
 	var item : InventoryItem = load(item_resource_path)
 	if item != null:
-		if player_data._add_to_inventory(item) != false:
+		if player_data._add_to_inventory(item, amount) != false:
 			inv_add_success = true
 		else:
 			inv_add_success = false
+
+
+func _on_hand_child_added(node: Node) -> void:
+	if node is Tool:
+		node.player = self

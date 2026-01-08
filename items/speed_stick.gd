@@ -1,20 +1,20 @@
 extends Tool
 
-@export var speed_mult = 0.25
-var base_mult = speed_mult
+@export var speed_mult = 0.6
+@onready var base_mult = speed_mult
 
 func _ready() -> void:
+	_setup()
 	player_data.speed_mult += speed_mult
 
 func _primary():
 	player_data.speed_mult -= speed_mult
-	speed_mult+=base_mult
+	speed_mult+=(base_mult/2)
 	player_data.speed_mult += speed_mult
 	spawn_particle()
 
-func _unequip():
+func _on_unequip():
 	player_data.speed_mult -= speed_mult
-	queue_free()
 
 func spawn_particle():
 	var new_particle = $GPUParticles3D.duplicate()

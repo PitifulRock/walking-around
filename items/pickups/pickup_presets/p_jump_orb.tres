@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickupData" load_steps=3 format=3 uid="uid://dmu6nv0jb4v5n"]
+
+[ext_resource type="Resource" uid="uid://bq02eftbhce7t" path="res://items/resources/JumpOrb.tres" id="1_48xgj"]
+[ext_resource type="Script" uid="uid://dfq25dlwygv5y" path="res://items/pickups/pickup_data.gd" id="1_60ard"]
+
+[resource]
+script = ExtResource("1_60ard")
+model_path = "uid://dap62vlaeswd7"
+item = ExtResource("1_48xgj")
+metadata/_custom_type_script = "uid://dfq25dlwygv5y"

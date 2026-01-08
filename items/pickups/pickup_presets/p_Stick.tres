@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickupData" load_steps=3 format=3 uid="uid://bitj5l3rcodxn"]
+
+[ext_resource type="Resource" uid="uid://umhmaxdmekyx" path="res://items/resources/stick.tres" id="1_i8g11"]
+[ext_resource type="Script" uid="uid://dfq25dlwygv5y" path="res://items/pickups/pickup_data.gd" id="3_n3ta8"]
+
+[resource]
+script = ExtResource("3_n3ta8")
+model_path = "uid://cmhcfjgt1m776"
+item = ExtResource("1_i8g11")
+metadata/_custom_type_script = "uid://dfq25dlwygv5y"

@@ -7,5 +7,6 @@
 script = ExtResource("2_abdrg")
 item_name = "Stick"
 icon = ExtResource("1_67q3q")
-spawn_scene_path = "uid://cmhcfjgt1m776"
+tool_scene_path = "uid://cmhcfjgt1m776"
+pickup_data = "uid://bitj5l3rcodxn"
 metadata/_custom_type_script = "uid://cop45c1br4kbh"

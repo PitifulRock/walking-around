@@ -1,0 +1,123 @@
+[gd_scene load_steps=20 format=3 uid="uid://dap62vlaeswd7"]
+
+[ext_resource type="Script" uid="uid://dmc7mdara65sj" path="res://items/jump_orb.gd" id="1_ujr3i"]
+[ext_resource type="Resource" uid="uid://dmu6nv0jb4v5n" path="res://items/pickups/pickup_presets/p_jump_orb.tres" id="2_cyu1y"]
+[ext_resource type="Resource" uid="uid://bq02eftbhce7t" path="res://items/resources/JumpOrb.tres" id="3_d5oan"]
+[ext_resource type="AudioStream" uid="uid://btrpr8axwh37h" path="res://sound/grass5.ogg" id="4_fmqev"]
+[ext_resource type="AudioStream" uid="uid://desi6vp40phj" path="res://sound/grass4.ogg" id="5_j7quy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5oan"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7quy"]
+next_pass = SubResource("StandardMaterial3D_d5oan")
+shading_mode = 0
+albedo_color = Color(9.1448425e-07, 0.78097135, 0.20705765, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="SphereMesh" id="SphereMesh_fmqev"]
+material = SubResource("StandardMaterial3D_j7quy")
+radius = 0.25
+height = 0.5
+radial_segments = 32
+
+[sub_resource type="Gradient" id="Gradient_cyu1y"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5, 0.7)
+colors = PackedColorArray(0.25481188, 0.7556398, 0, 1, 2.2140146e-06, 0.753254, 0.62377805, 1, 0.19203594, 0.851051, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d5oan"]
+gradient = SubResource("Gradient_cyu1y")
+
+[sub_resource type="Gradient" id="Gradient_j7quy"]
+offsets = PackedFloat32Array(0.2021858, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fmqev"]
+gradient = SubResource("Gradient_j7quy")
+
+[sub_resource type="Curve" id="Curve_ks3r1"]
+_data = [Vector2(0, 0.77586204), 0.0, -0.24827597, 0, 0, Vector2(1, 0), -1.1961694, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_osh0h"]
+curve = SubResource("Curve_ks3r1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_od53v"]
+emission_shape = 3
+emission_box_extents = Vector3(0.26, 0.01, 0.185)
+angle_min = -318.1
+angle_max = 318.1
+angular_velocity_min = -187.53001
+angular_velocity_max = 187.52998
+radial_velocity_min = -3.0000222
+radial_velocity_max = 2.9999776
+gravity = Vector3(0, -2, 0)
+linear_accel_min = 0.09999776
+linear_accel_max = 0.09999776
+scale_curve = SubResource("CurveTexture_osh0h")
+color_ramp = SubResource("GradientTexture1D_fmqev")
+color_initial_ramp = SubResource("GradientTexture1D_d5oan")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bqywg"]
+load_path = "res://.godot/imported/cloud.png-48614ba3e14a9474f2d8dc01374a7225.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nj0mu"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_bqywg")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fn1r3"]
+material = SubResource("StandardMaterial3D_nj0mu")
+size = Vector2(0.4, 0.4)
+orientation = 2
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_od53v"]
+stream_count = 2
+stream_0/stream = ExtResource("4_fmqev")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("5_j7quy")
+stream_1/volume = -5.45
+
+[node name="JumpOrb" type="Node3D"]
+script = ExtResource("1_ujr3i")
+pickup_data = ExtResource("2_cyu1y")
+inv_item = ExtResource("3_d5oan")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_fmqev")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24879783, 0.04499811)
+emitting = false
+amount = 40
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource("ParticleProcessMaterial_od53v")
+draw_pass_1 = SubResource("PlaneMesh_fn1r3")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamSynchronized_od53v")
+volume_db = -5.222
+pitch_scale = 2.2
+bus = &"SFX"

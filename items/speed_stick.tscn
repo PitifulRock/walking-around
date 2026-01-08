@@ -1,7 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://btrunafcjivp4"]
+[gd_scene load_steps=18 format=3 uid="uid://btrunafcjivp4"]
 
 [ext_resource type="Script" uid="uid://bj6ani0t0mlpy" path="res://items/speed_stick.gd" id="1_ood5n"]
 [ext_resource type="Texture2D" uid="uid://e6mw23k6mcxi" path="res://textures/cloud.png" id="2_k6ddv"]
+[ext_resource type="Resource" uid="uid://2nio0mbjcrrb" path="res://items/pickups/pickup_presets/p_SpeedStick.tres" id="2_ubdwt"]
+[ext_resource type="Resource" uid="uid://dfn01t0hmhu2k" path="res://items/resources/SpeedStick.tres" id="2_v4dbv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hh8ma"]
 render_priority = 1
@@ -95,6 +97,8 @@ orientation = 2
 
 [node name="SpeedStick" type="Node3D"]
 script = ExtResource("1_ood5n")
+pickup_data = ExtResource("2_ubdwt")
+inv_item = ExtResource("2_v4dbv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29489407, -0.01915431)

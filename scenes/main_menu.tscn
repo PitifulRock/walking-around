@@ -14,6 +14,7 @@ offset_left = 171.0
 offset_right = -171.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_wu84c")
 script = ExtResource("1_bqqt6")
 
 [node name="BorderR" type="Control" parent="."]

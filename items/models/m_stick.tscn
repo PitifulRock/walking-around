@@ -1,4 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmhcfjgt1m776"]
+[gd_scene load_steps=8 format=3 uid="uid://cmhcfjgt1m776"]
+
+[ext_resource type="Script" uid="uid://cb8puwxg6cnbc" path="res://items/models/model.gd" id="1_wsgiq"]
+[ext_resource type="Resource" uid="uid://bitj5l3rcodxn" path="res://items/pickups/pickup_presets/p_Stick.tres" id="2_7x4bk"]
+[ext_resource type="Resource" uid="uid://umhmaxdmekyx" path="res://items/resources/stick.tres" id="2_neg6n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdq2y"]
 render_priority = 1
@@ -35,11 +39,16 @@ height = 0.25
 radial_segments = 32
 
 [node name="Stick" type="Node3D"]
+script = ExtResource("1_wsgiq")
+held_rot = Vector3(90, 0, 0)
+pickup_offset = Vector3(0, 0, 0.25)
+pickup_data = ExtResource("2_7x4bk")
+inv_item = ExtResource("2_neg6n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.08588219, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.27227327)
 mesh = SubResource("CylinderMesh_wdq2y")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.6764905, 0.7364514, 3.219131e-08, 0, -4.371139e-08, 1, 0.7364514, -0.6764905, -2.9570334e-08, 0.08809121, 0.08588219, -0.081976235)
+transform = Transform3D(0.6764905, 0.7364514, 3.219131e-08, 0, -4.371139e-08, 1, 0.7364514, -0.6764905, -2.9570334e-08, 0.08809121, 0, -0.3542495)
 mesh = SubResource("CylinderMesh_1x35e")
