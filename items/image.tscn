@@ -1,0 +1,227 @@
+[gd_scene load_steps=16 format=3 uid="uid://bq7jrl6atlw6q"]
+
+[ext_resource type="Script" uid="uid://dy5vyb5k7jdbm" path="res://items/camera_image.gd" id="1_nires"]
+[ext_resource type="Resource" uid="uid://m3mk6pqlv3v7" path="res://items/pickups/pickup_presets/p_Picture.tres" id="2_0oi8b"]
+[ext_resource type="Resource" uid="uid://4xsa8ly5p87m" path="res://items/resources/Picture.tres" id="3_b46al"]
+[ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="4_34d6r"]
+[ext_resource type="Texture2D" uid="uid://novwxvf17dme" path="res://textures/hat.png" id="4_b46al"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nires"]
+size = Vector2(0.575, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0hk3l"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oi8b"]
+next_pass = SubResource("StandardMaterial3D_0hk3l")
+shading_mode = 0
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0hk3l"]
+size = Vector2(0.505, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b46al"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_34d6r"]
+next_pass = SubResource("StandardMaterial3D_b46al")
+shading_mode = 0
+albedo_color = Color(0.39688927, 0.39688927, 0.39688924, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34d6r"]
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.18039216, 0.27450982, 0.52156866, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+anti_aliasing_size = 0.2
+
+[sub_resource type="Animation" id="Animation_b46al"]
+resource_name = "slide"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PictureUI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.46651638, 1),
+"update": 0,
+"values": [Vector2(473.5, 775), Vector2(473.5, 126)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PictureUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_34d6r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PictureUI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(473.5, 126)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PictureUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ho5ej"]
+_data = {
+&"RESET": SubResource("Animation_34d6r"),
+&"slide": SubResource("Animation_b46al")
+}
+
+[node name="Image" type="Node3D"]
+script = ExtResource("1_nires")
+image_rating = 0.0
+pickup_data = ExtResource("2_0oi8b")
+inv_item = ExtResource("3_b46al")
+metadata/_custom_type_script = "uid://jewdayofv26w"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21037602, 0)
+mesh = SubResource("PlaneMesh_nires")
+surface_material_override/0 = SubResource("StandardMaterial3D_0oi8b")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2163328, -0.09181249)
+mesh = SubResource("PlaneMesh_0hk3l")
+surface_material_override/0 = SubResource("StandardMaterial3D_34d6r")
+
+[node name="PictureUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.5
+offset_top = -258.0
+offset_right = 209.50012
+offset_bottom = 258.0005
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_34d6r")
+
+[node name="BG" type="ColorRect" parent="PictureUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PictureDisplay" type="TextureRect" parent="PictureUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.0
+offset_top = 19.0
+offset_right = 190.0
+offset_bottom = 304.0
+grow_horizontal = 2
+texture = ExtResource("4_b46al")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PictureUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.00006
+offset_top = 316.0
+offset_right = 189.99994
+offset_bottom = 510.0
+grow_horizontal = 2
+
+[node name="ScoreLabel" type="Label" parent="PictureUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18019578, 0.27654225, 0.5234097, 1)
+theme_override_font_sizes/font_size = 32
+text = "Picture Score: 900"
+
+[node name="Panel" type="Panel" parent="PictureUI/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.75686276)
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_34d6r")
+
+[node name="ClarityLabel" type="Label" parent="PictureUI/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.75686276)
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18019578, 0.27654225, 0.5234097, 1)
+theme_override_font_sizes/font_size = 24
+text = "Clarity:  100%"
+vertical_alignment = 1
+
+[node name="AnimalLabel" type="Label" parent="PictureUI/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.75686276)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18019578, 0.27654225, 0.5234097, 1)
+theme_override_font_sizes/font_size = 24
+text = "Animals:"
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ho5ej")
+}

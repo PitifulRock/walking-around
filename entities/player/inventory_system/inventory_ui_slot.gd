@@ -67,10 +67,10 @@ func _on_button_toggled(toggled_on: bool, mouse := true) -> void:
 	if mouse == false:
 		if toggled_on: 
 			$MousePopup/EquipButton.text = "Unequip"
-			if held_item: held_item._on_clicked(toggled_on, self)
+			if held_item: held_item._on_clicked(toggled_on, self, current_slot.item_data)
 		else:
 			$MousePopup/EquipButton.text = "Equip"
-			if spawned_item: held_item._on_clicked(toggled_on, self)
+			if spawned_item and held_item: held_item._on_clicked(toggled_on, self, current_slot.item_data)
 		
 		if toggled_on: $AnimationPlayer.play("select_anim")
 		else: $AnimationPlayer.play("RESET")

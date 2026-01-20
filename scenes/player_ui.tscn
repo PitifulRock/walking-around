@@ -217,24 +217,6 @@ grow_horizontal = 2
 texture = ExtResource("5_7wyo6")
 expand_mode = 1
 
-[node name="LobbyText" type="Label" parent="Right"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -120.5
-offset_top = -384.0
-offset_right = 71.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 27
-text = "Lobby:
-"
-horizontal_alignment = 3
-autowrap_mode = 1
-
 [node name="CenterUI" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -248,7 +230,7 @@ offset_right = 512.0
 offset_bottom = 384.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="DialogueBox" type="Control" parent="CenterUI"]
 visible = false

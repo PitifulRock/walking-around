@@ -1,3 +1,4 @@
+@tool
 extends Tool
 
 @export var speed_mult = 0.6

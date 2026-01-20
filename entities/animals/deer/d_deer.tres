@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=2 format=3 uid="uid://bh6jlebvqngmq"]
+
+[ext_resource type="Script" uid="uid://bmy23hj82gcy5" path="res://entities/animals/animal_data.gd" id="1_ou8hp"]
+
+[resource]
+script = ExtResource("1_ou8hp")
+name = "Deer"
+metadata/_custom_type_script = "uid://bmy23hj82gcy5"

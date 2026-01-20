@@ -17,7 +17,7 @@ signal inv_item_added
 @export var unlocked_hats : Array = ["empty_hat.tscn", "wizard_hat.tscn"]
 @export var inventory_full := false
 
-func _add_to_inventory(item : InventoryItem, passed_amount:=1) -> bool:
+func _add_to_inventory(item : InventoryItem, passed_amount:=1, item_data := {}) -> bool:
 	if passed_amount == 1: passed_amount = item.base_amount
 	if item.stackable:
 		var item_slots = inventory.filter(func(slot): return slot.item == item)
@@ -36,6 +36,7 @@ func _add_to_inventory(item : InventoryItem, passed_amount:=1) -> bool:
 		if !empty_slots.is_empty():
 			empty_slots[0].item = item
 			empty_slots[0].amount = 1
+			empty_slots[0].item_data = item_data
 		else:
 			inventory_full = true
 			return false
@@ -51,6 +52,8 @@ func _remove_from_inventory(item : InventoryItem, amount:=1):
 		item_slots[0].amount -= amount
 		if item_slots[0].amount <= 0:
 			item_slots[0].item = null
+			item_slots[0].item_data = {}
 			inventory_changed.emit()
+	else: return
 	
 	inventory_changed.emit()

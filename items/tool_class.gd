@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 class_name Tool
 
@@ -9,10 +10,30 @@ var player_data : PlayerData
 @export var disable_as_model := true
 @export var force_equipped := false
 
+@export var item_data : Dictionary
+
+@export_group("Held Transform")
+@export var held_rot := Vector3.ZERO
+@export var held_offset := Vector3.ZERO
+@export_tool_button("Set Held Transform") var button_func = func(): set_offset_transform(true)
+
+@export_group("Pickup Transform")
+@export var pickup_rot := Vector3.ZERO
+@export var pickup_offset := Vector3.ZERO
+@export_tool_button("Set Pickup Transform") var but_func = func(): set_offset_transform(false)
+
 var held := false
 var unequipping := false
 var dropping := false
 var can_primary = true
+
+func set_offset_transform(held_t : bool):
+	if held_t:
+		held_rot = rotation
+		held_offset = position
+	else:
+		pickup_rot = rotation
+		pickup_offset = position
 
 func _input(_event: InputEvent) -> void:
 	if !held: return
@@ -24,9 +45,20 @@ func _input(_event: InputEvent) -> void:
 		can_primary = true
 
 func _setup():
+	position = Vector3.ZERO
+	rotation = Vector3.ZERO
 	if get_parent().name == "HandPoint": 
 		held = true
 		player_data = player.player_data
+	if held:
+		rotation = held_rot
+		position += held_offset
+	else:
+		rotation = pickup_rot
+		position += pickup_offset
+	
+	if !held and disable_as_model:
+		process_mode = Node.PROCESS_MODE_DISABLED
 
 #func _process(delta: float) -> void:
 	#print(get_path())

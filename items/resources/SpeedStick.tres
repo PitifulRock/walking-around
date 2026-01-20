@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dfn01t0hmhu2k"]
 
-[ext_resource type="Texture2D" uid="uid://bkd1mjxmsruho" path="res://textures/item_icons/stick_icon.png" id="1_6wxne"]
+[ext_resource type="Texture2D" uid="uid://b1l4wqcmd5wyb" path="res://textures/item_icons/stick_albedo.png" id="1_1e1ul"]
 [ext_resource type="Script" uid="uid://cop45c1br4kbh" path="res://entities/player/inventory_system/inventory_item.gd" id="2_6kmu0"]
 
 [resource]
 script = ExtResource("2_6kmu0")
 item_name = "Speed Stick"
-icon = ExtResource("1_6wxne")
+icon = ExtResource("1_1e1ul")
+icon_albedo = Color(0, 0.589011, 1.5790963, 1)
 stackable = false
 tool_scene_path = "uid://btrunafcjivp4"
 pickup_data = "uid://2nio0mbjcrrb"

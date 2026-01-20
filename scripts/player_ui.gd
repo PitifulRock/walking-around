@@ -10,7 +10,6 @@ func _ready() -> void:
 	%CustomizeMenu.hide()
 
 func _physics_process(_delta: float) -> void:
-	$Right/LobbyText.text = str(Master.player_list)
 	%MinimapCam.global_position = Vector3(player.global_position.x, 15, player.global_position.z)
 	#%MinimapCam.global_rotation.y = lerp_angle(%MinimapCam.global_rotation.y, player.global_rotation.y, 9*delta)
 

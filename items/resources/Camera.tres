@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bab7xyy3e0jse"]
+
+[ext_resource type="Texture2D" uid="uid://ccvv2ynt6aye2" path="res://textures/ui/hand_icon_1.png" id="1_nu2va"]
+[ext_resource type="Script" uid="uid://cop45c1br4kbh" path="res://entities/player/inventory_system/inventory_item.gd" id="2_pecn3"]
+
+[resource]
+script = ExtResource("2_pecn3")
+item_name = "Camera"
+icon = ExtResource("1_nu2va")
+icon_albedo = Color(0.737193, 0.7371929, 0.7371929, 1)
+stackable = false
+tool_scene_path = "uid://bcf8efmb2b127"
+pickup_data = "uid://bjn1apwybgw21"
+metadata/_custom_type_script = "uid://cop45c1br4kbh"

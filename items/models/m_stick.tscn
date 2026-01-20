@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmhcfjgt1m776"]
+[gd_scene load_steps=9 format=3 uid="uid://cmhcfjgt1m776"]
 
 [ext_resource type="Script" uid="uid://cb8puwxg6cnbc" path="res://items/models/model.gd" id="1_wsgiq"]
 [ext_resource type="Resource" uid="uid://bitj5l3rcodxn" path="res://items/pickups/pickup_presets/p_Stick.tres" id="2_7x4bk"]
@@ -16,7 +16,7 @@ stencil_flags = 1
 stencil_compare = 5
 metadata/_stencil_owned = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1x35e"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7x4bk"]
 next_pass = SubResource("StandardMaterial3D_wdq2y")
 shading_mode = 0
 albedo_color = Color(0.49584317, 0.35529736, 0.16003779, 1)
@@ -25,25 +25,34 @@ stencil_flags = 2
 stencil_outline_thickness = 0.042
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wdq2y"]
-material = SubResource("StandardMaterial3D_1x35e")
+material = SubResource("StandardMaterial3D_7x4bk")
 top_radius = 0.04
 bottom_radius = 0.04
 height = 0.6
 radial_segments = 32
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctr7x"]
+next_pass = SubResource("StandardMaterial3D_wdq2y")
+shading_mode = 0
+albedo_color = Color(0.49584317, 0.35529736, 0.16003779, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_1x35e"]
-material = SubResource("StandardMaterial3D_1x35e")
+material = SubResource("StandardMaterial3D_ctr7x")
 top_radius = 0.04
 bottom_radius = 0.04
 height = 0.25
 radial_segments = 32
 
 [node name="Stick" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.122871146, 0.25127724)
 script = ExtResource("1_wsgiq")
-held_rot = Vector3(90, 0, 0)
-pickup_offset = Vector3(0, 0, 0.25)
 pickup_data = ExtResource("2_7x4bk")
 inv_item = ExtResource("2_neg6n")
+held_offset = Vector3(0, 0, 0.019501984)
+pickup_offset = Vector3(0, 0.122871146, 0.25127724)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.27227327)

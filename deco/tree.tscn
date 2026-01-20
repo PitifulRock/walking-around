@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://x0l1idke0d43"]
+
+[ext_resource type="Texture2D" uid="uid://d36g2tk8uaebc" path="res://textures/tree_trunk.png" id="1_d1oxj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1oxj"]
+shading_mode = 0
+albedo_color = Color(0.39274353, 0.6247759, 0.18342936, 1)
+refraction_enabled = true
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hf208"]
+height = 19.706299
+radius = 1.1015625
+
+[node name="Tree" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.404627, 0, 0, 0, 1, 0, 23.05732, 0)
+modulate = Color(0.4077865, 0.24949998, 0.12900722, 1)
+billboard = 2
+shaded = true
+texture = ExtResource("1_d1oxj")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1.8074434, 0, 0, 0, 1.2477827, 0, 0, 0, 1.8693376, -0.11286354, 39.235493, 0)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9016712, -1.5999985, 0)
+radius = 2.6859968
+material = SubResource("StandardMaterial3D_d1oxj")
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.67734313, -1.8503914, 0)
+radius = 3.3037176
+material = SubResource("StandardMaterial3D_d1oxj")
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.6318264, 0, -0.7751099, 0, 0.6132028, 0, 0.7751099, 0, 0.6318264, -1.4269087, -4.2207108, -0.99950975)
+radius = 4.004428
+material = SubResource("StandardMaterial3D_d1oxj")
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.002128005, 0, -1.3469245, 0, 1, 0, 0.71719825, 0, 0.0039964914, 2.3956516, -3.8681602, 0.99950975)
+radius = 3.3037176
+material = SubResource("StandardMaterial3D_d1oxj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.853149, 0)
+shape = SubResource("CylinderShape3D_hf208")

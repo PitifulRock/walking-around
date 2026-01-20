@@ -9,10 +9,10 @@ class_name InventoryItem
 @export var stackable : bool = true
 @export var base_amount := 1
 @export_category("References")
-@export_file("*.tscn") var tool_scene_path : String
-@export_file(".tres") var pickup_data : String
+@export_file("*.tscn") var tool_scene_path : String = "res://items/"
+@export_file(".tres") var pickup_data : String = "res://items/pickups/pickup_presets/"
 
-func _on_clicked(equipped : bool, connected_slot : Node):
+func _on_clicked(equipped : bool, connected_slot : Node, item_data : Dictionary = {}):
 	if !Master.local_player.is_multiplayer_authority():
 		return
 	var player_hand = Master.local_player.find_child("HandPoint")
@@ -34,9 +34,9 @@ func _on_clicked(equipped : bool, connected_slot : Node):
 				i._unequip()
 		
 		Master.spawn_node_for_peers.rpc(tool_scene_path, Vector3.ZERO, player_hand.get_path())
+		scene.item_data = item_data
 		player_hand.add_child(scene)
 		connected_slot.spawned_item = scene
 		
 		for i:Tool in player_hand.get_children(): 
 			i.held = true
-		print("spawned")

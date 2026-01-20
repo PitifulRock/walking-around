@@ -96,20 +96,24 @@ size = Vector2(0.4, 0.4)
 orientation = 2
 
 [node name="SpeedStick" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24661681)
 script = ExtResource("1_ood5n")
+base_mult = 0.6
 pickup_data = ExtResource("2_ubdwt")
 inv_item = ExtResource("2_v4dbv")
+held_offset = Vector3(0, 0, -0.24661681)
+pickup_offset = Vector3(0, 0.16611776, -0.021122366)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29489407, -0.01915431)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.0027366579, 0.021833807)
 mesh = SubResource("CylinderMesh_ood5n")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.6764905, 0.7364514, 3.219131e-08, -0.7364514, 0.6764905, -1.41410545e-08, -3.2191313e-08, -1.4141049e-08, 1, 0.08809121, 0.3768703, -0.01915431)
+transform = Transform3D(0.6764905, 0.7364514, 3.2191306e-08, 7.1054274e-15, -4.371139e-08, 1, 0.7364514, -0.6764905, -2.9570334e-08, 0.08809121, 0.0027366579, -0.060142428)
 mesh = SubResource("CylinderMesh_k6ddv")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56088597, 0.04499811)
+transform = Transform3D(1, 0, 0, 0, 0.011885439, 0.99992937, 0, -0.99992937, 0.011885439, 0, 0.005478859, -0.26449627)
 emitting = false
 amount = 20
 lifetime = 0.3

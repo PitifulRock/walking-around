@@ -1,3 +1,4 @@
+@tool
 extends Tool
 
 @export var jump_amt := 14.0

@@ -7,12 +7,17 @@ signal game_unpaused
 @onready var ID : int = self.name.to_int()
 @onready var model: Node3D = $Model
 @export var SPEED := 5.0
+@export var SNEAK_SPEED := 2.5
 @export var ACCELERATION := 12.0
 @export var GRAVITY := 28.0
 
 @export var inv_add_success := true
 
+@onready var fps_cam: Node3D = $FpsHolder
+@onready var main_camera: Camera3D = $PlayerCamera
+
 var current_health : float
+var current_speed := SPEED
 var input : Vector2
 var facing_dir : Vector3
 var attention_captured := false
@@ -23,6 +28,8 @@ var ui : Control
 var spawned := false
 var steam_name : String
 var paused := false
+var can_move := true
+var in_menu := false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -30,7 +37,7 @@ func _enter_tree() -> void:
 func _input(_event: InputEvent) -> void:
 	if !is_multiplayer_authority(): return
 	
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("exit") and !in_menu:
 		pause()
 
 func pause():
@@ -69,19 +76,27 @@ func spawn_sequence():
 	spawned = true
 
 func _physics_process(delta: float) -> void:
-	if !spawned or paused: return
-	
+	if !spawned: return
 	if !is_multiplayer_authority(): return
 	
 	input = Input.get_vector("left", "right", "down", "up")
+	var walking : bool
 	
-	if input.length() > 0:
-		var angle = input.angle() + deg_to_rad(45)
-		facing_dir = Vector3(sin(angle),0.0,cos(angle)).normalized()
-		rotation.y = lerp_angle(rotation.y, angle, 20*delta)
-		var walk_velocity = -facing_dir * SPEED * player_data.speed_mult
-		velocity = Vector3(walk_velocity.x, velocity.y, walk_velocity.z)
+	if !paused and can_move:
+		if input.length() > 0:
+			walking = true
+			var angle = input.angle() + deg_to_rad(45)
+			facing_dir = Vector3(sin(angle),0.0,cos(angle)).normalized()
+			rotation.y = lerp_angle(rotation.y, angle, 20*delta)
+			var walk_velocity = -facing_dir * current_speed * player_data.speed_mult
+			velocity = Vector3(walk_velocity.x, velocity.y, walk_velocity.z)
+		else:
+			walking = false
 	else:
+		walking = false
+		input = Vector2.ZERO
+	
+	if !walking:
 		velocity.x = lerpf(velocity.x, 0.0, ACCELERATION * delta)
 		velocity.z = lerpf(velocity.z, 0.0, ACCELERATION * delta)
 	
@@ -105,10 +120,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 @rpc("any_peer", "call_local", "reliable")
-func _push_to_inv(item_resource_path : String, amount:=1):
+func _push_to_inv(item_resource_path : String, amount:=1, item_data := {}):
 	var item : InventoryItem = load(item_resource_path)
 	if item != null:
-		if player_data._add_to_inventory(item, amount) != false:
+		if player_data._add_to_inventory(item, amount, item_data) != false:
 			inv_add_success = true
 		else:
 			inv_add_success = false

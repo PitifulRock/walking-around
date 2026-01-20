@@ -1,0 +1,295 @@
+[gd_scene load_steps=23 format=3 uid="uid://bcf8efmb2b127"]
+
+[ext_resource type="Script" uid="uid://bueuur00447lu" path="res://items/camera.gd" id="1_806j5"]
+[ext_resource type="Texture2D" uid="uid://cn31j6i5he3dw" path="res://textures/ui/viewfinder.png" id="2_1vb0t"]
+[ext_resource type="Resource" uid="uid://bab7xyy3e0jse" path="res://items/resources/Camera.tres" id="2_i5gwf"]
+[ext_resource type="Resource" uid="uid://bjn1apwybgw21" path="res://items/pickups/pickup_presets/p_Camera.tres" id="2_u8xv6"]
+[ext_resource type="Shader" uid="uid://ddy2hh21gnpfg" path="res://shaders/blur.gdshader" id="3_hf6x2"]
+[ext_resource type="Theme" uid="uid://cgdnvsp7lb16j" path="res://textures/theme.tres" id="4_hyxqy"]
+[ext_resource type="FontFile" uid="uid://43rhw7btetoe" path="res://textures/JMH Typewriter-Thin.otf" id="5_t6je2"]
+[ext_resource type="Texture2D" uid="uid://cfl46h32ebur4" path="res://textures/grass_triangle.png" id="7_sgve2"]
+[ext_resource type="FontFile" uid="uid://bnrimir4sktxu" path="res://textures/JMH Typewriter-Bold.otf" id="8_bmje0"]
+[ext_resource type="AudioStream" uid="uid://4ppbd2ntl1pw" path="res://sound/175517__mywhats__camera-shutter.wav" id="10_b4lb2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5gwf"]
+shader = ExtResource("3_hf6x2")
+shader_parameter/blur_amount = 6.217249e-15
+
+[sub_resource type="LabelSettings" id="LabelSettings_t6je2"]
+font = ExtResource("5_t6je2")
+font_size = 26
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hyxqy"]
+color = Color(0, 0, 0, 0.7137255)
+thickness = 8
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bmje0"]
+color = Color(1, 1, 1, 1)
+thickness = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_b4lb2"]
+font = ExtResource("8_bmje0")
+font_size = 26
+font_color = Color(0, 0, 0, 0.5372549)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.5372549)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8xv6"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyxqy"]
+next_pass = SubResource("StandardMaterial3D_u8xv6")
+shading_mode = 0
+albedo_color = Color(0.4619354, 0.5627528, 0.61935997, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.03
+
+[sub_resource type="BoxMesh" id="BoxMesh_sgve2"]
+material = SubResource("StandardMaterial3D_hyxqy")
+size = Vector3(0.51, 0.31, 0.125)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgve2"]
+next_pass = SubResource("StandardMaterial3D_u8xv6")
+shading_mode = 0
+albedo_color = Color(0.14549354, 0.17166936, 0.17428878, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[sub_resource type="BoxMesh" id="BoxMesh_u8xv6"]
+material = SubResource("StandardMaterial3D_sgve2")
+size = Vector3(0.175, 0.08, 0.065)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmje0"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.042
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6je2"]
+next_pass = SubResource("StandardMaterial3D_bmje0")
+shading_mode = 0
+albedo_color = Color(0.26142758, 0.48588496, 1, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.042
+
+[node name="Camera" type="Node3D"]
+transform = Transform3D(1.0000001, 0, 0, 0, -4.371139e-08, -1.0000001, 0, 1, -4.3711392e-08, 0, 0.17361742, 0)
+script = ExtResource("1_806j5")
+pickup_data = ExtResource("2_u8xv6")
+inv_item = ExtResource("2_i5gwf")
+held_rot = Vector3(-0.14639327, -0.72571635, 0.12870602)
+held_offset = Vector3(-0.022388667, 0.05169794, 0)
+pickup_rot = Vector3(1.5707964, 0, 0)
+pickup_offset = Vector3(0, 0.17361742, 0)
+metadata/_custom_type_script = "uid://jewdayofv26w"
+
+[node name="CameraUI" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1024, 768)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -384.0
+offset_right = 512.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("4_hyxqy")
+
+[node name="CamViewportContainer" type="SubViewportContainer" parent="CameraUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.23999023
+offset_right = -0.76000977
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CamViewport" type="SubViewport" parent="CameraUI/CamViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(1024, 768)
+render_target_update_mode = 4
+
+[node name="FpsCamera" type="Camera3D" parent="CameraUI/CamViewportContainer/CamViewport"]
+unique_name_in_owner = true
+top_level = true
+
+[node name="Blur" type="ColorRect" parent="CameraUI/CamViewportContainer/CamViewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_i5gwf")
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.23999023
+offset_right = -0.24023438
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ClarityLabel" type="Label" parent="CameraUI"]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -266.24
+offset_top = 71.0
+offset_right = 270.52008
+offset_bottom = 108.0
+grow_horizontal = 2
+text = "Clarity: 0%"
+label_settings = SubResource("LabelSettings_t6je2")
+horizontal_alignment = 1
+
+[node name="Viewfinder" type="TextureRect" parent="CameraUI"]
+self_modulate = Color(1, 1, 1, 0.5372549)
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -0.00024414063
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_1vb0t")
+expand_mode = 1
+
+[node name="FocusMeter" type="Panel" parent="CameraUI"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -323.24
+offset_top = -325.0
+offset_right = 324.76007
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_hyxqy")
+
+[node name="FocusSpot" type="Panel" parent="CameraUI/FocusMeter"]
+custom_minimum_size = Vector2(0, 13.735)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0000305
+offset_top = -7.9999995
+offset_right = 1.9999695
+offset_bottom = 6.8675003
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_bmje0")
+
+[node name="FocusDial" type="TextureRect" parent="CameraUI/FocusMeter"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0000305
+offset_top = -35.0
+offset_right = 7.9999695
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(8, 0)
+texture = ExtResource("7_sgve2")
+expand_mode = 1
+flip_v = true
+
+[node name="MinX" type="Control" parent="CameraUI/FocusMeter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -1.0
+offset_bottom = -1.0
+grow_vertical = 2
+
+[node name="MaxX" type="Control" parent="CameraUI/FocusMeter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -16.000061
+offset_top = -1.0
+offset_right = -16.000061
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ClarityLabel2" type="Label" parent="CameraUI"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -388.24
+offset_top = 613.0
+offset_right = -215.23993
+offset_bottom = 721.0
+grow_horizontal = 2
+text = "Adjust Focus
+Take Photo
+Close"
+label_settings = SubResource("LabelSettings_b4lb2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_sgve2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14656648, 0.15051429, 0)
+mesh = SubResource("BoxMesh_u8xv6")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.00048580766, 0.0043203086, -0.07380271)
+radius = 0.10546875
+height = 0.1
+sides = 12
+material = SubResource("StandardMaterial3D_sgve2")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.043835446, 0)
+operation = 2
+radius = 0.083984375
+height = 0.048071288
+sides = 12
+material = SubResource("StandardMaterial3D_t6je2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_b4lb2")
+bus = &"SFX"

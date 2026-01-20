@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://cgdnvsp7lb16j"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cgdnvsp7lb16j"]
 
 [ext_resource type="FontFile" uid="uid://dtf6ex10wjuju" path="res://textures/Qilka-Bold copy.otf" id="1_v5oe5"]
 
@@ -56,6 +56,22 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 anti_aliasing_size = 0.2
 
+[sub_resource type="DPITexture" id="DPITexture_v5oe5"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".45\" stroke-width=\"2\" d=\"m5 7 3 3 3-3\"/></svg>
+"
+
+[sub_resource type="DPITexture" id="DPITexture_yv64y"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".45\" stroke-width=\"2\" d=\"m11.011063 9.9776246-3.0222094-2.9776246-2.9776247 3.02221\"/></svg>
+"
+
+[sub_resource type="DPITexture" id="DPITexture_tbmfk"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".45\" stroke-width=\"2\" d=\"m6 11 3-3-3-3\"/></svg>
+"
+
+[sub_resource type="DPITexture" id="DPITexture_edfkk"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".45\" stroke-width=\"2\" d=\"m9 11-3-3 3-3\"/></svg>
+"
+
 [sub_resource type="DPITexture" id="DPITexture_jxunf"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"7\" fill=\"#fefefe\"/></svg>
 "
@@ -94,7 +110,7 @@ corner_detail = 6
 
 [resource]
 default_font = ExtResource("1_v5oe5")
-default_font_size = 92
+default_font_size = 32
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.77495027, 0.71016145, 0.6289514, 1)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -117,6 +133,22 @@ Button/styles/focus = SubResource("StyleBoxEmpty_11b60")
 Button/styles/hover = SubResource("StyleBoxFlat_11b60")
 Button/styles/normal = SubResource("StyleBoxFlat_33m1n")
 Button/styles/pressed = SubResource("StyleBoxFlat_jxunf")
+FoldableContainer/colors/collapsed_font_color = Color(1, 1, 1, 1)
+FoldableContainer/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+FoldableContainer/colors/font_outline_color = Color(1, 1, 1, 1)
+FoldableContainer/colors/hover_font_color = Color(0.95, 0.95, 0.95, 1)
+FoldableContainer/constants/h_separation = 0
+FoldableContainer/constants/outline_size = 0
+FoldableContainer/icons/expanded_arrow = SubResource("DPITexture_v5oe5")
+FoldableContainer/icons/expanded_arrow_mirrored = SubResource("DPITexture_yv64y")
+FoldableContainer/icons/folded_arrow = SubResource("DPITexture_tbmfk")
+FoldableContainer/icons/folded_arrow_mirrored = SubResource("DPITexture_edfkk")
+FoldableContainer/styles/focus = SubResource("StyleBoxEmpty_11b60")
+FoldableContainer/styles/panel = SubResource("StyleBoxFlat_33m1n")
+FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_33m1n")
+FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_33m1n")
+FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_33m1n")
+FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_33m1n")
 HSlider/constants/center_grabber = 2
 HSlider/constants/grabber_offset = 0
 HSlider/constants/tick_offset = 0

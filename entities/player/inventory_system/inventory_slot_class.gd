@@ -6,3 +6,4 @@ class_name InventorySlot
 	set(val):
 		if val < 0: val = 0
 		amount = val
+@export var item_data: Dictionary

@@ -18,6 +18,7 @@ var is_joining : bool = false
 var current_scene : Node
 
 func _ready() -> void:
+	randomize()
 	current_scene = default_scene
 	Master.game_manager = self
 	Console._print("Init: ", Steam.steamInit(480, true))

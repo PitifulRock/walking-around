@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://umhmaxdmekyx"]
 
-[ext_resource type="Texture2D" uid="uid://bkd1mjxmsruho" path="res://textures/item_icons/stick_icon.png" id="1_67q3q"]
+[ext_resource type="Texture2D" uid="uid://b1l4wqcmd5wyb" path="res://textures/item_icons/stick_albedo.png" id="1_s6345"]
 [ext_resource type="Script" uid="uid://cop45c1br4kbh" path="res://entities/player/inventory_system/inventory_item.gd" id="2_abdrg"]
 
 [resource]
 script = ExtResource("2_abdrg")
 item_name = "Stick"
-icon = ExtResource("1_67q3q")
+icon = ExtResource("1_s6345")
+icon_albedo = Color(0.34117648, 0.25490198, 0.1882353, 1)
 tool_scene_path = "uid://cmhcfjgt1m776"
 pickup_data = "uid://bitj5l3rcodxn"
 metadata/_custom_type_script = "uid://cop45c1br4kbh"

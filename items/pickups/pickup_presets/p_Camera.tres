@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickupData" load_steps=3 format=3 uid="uid://bjn1apwybgw21"]
+
+[ext_resource type="Resource" uid="uid://bab7xyy3e0jse" path="res://items/resources/Camera.tres" id="1_au32a"]
+[ext_resource type="Script" uid="uid://dfq25dlwygv5y" path="res://items/pickups/pickup_data.gd" id="1_r0kat"]
+
+[resource]
+script = ExtResource("1_r0kat")
+model_path = "uid://bcf8efmb2b127"
+item = ExtResource("1_au32a")
+metadata/_custom_type_script = "uid://dfq25dlwygv5y"
